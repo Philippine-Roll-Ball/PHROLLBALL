@@ -1,73 +1,134 @@
-# React + TypeScript + Vite
+# 🏀 Philippine Rollball Association Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Website](https://img.shields.io/badge/Website-Live-blue)](https://www.philrollball.org.ph)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)]()
+[![HTML5](https://img.shields.io/badge/HTML5-orange)]()
+[![CSS3](https://img.shields.io/badge/CSS3-blue)]()
+[![REACT](https://img.shields.io/badge/REACT-blue)]()
+---
 
-Currently, two official plugins are available:
+## 🌟 About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Philippine Rollball Association** is the official platform for promoting **Rollball** in the Philippines. Rollball is a dynamic team sport that combines elements of basketball, handball, and soccer. The website serves as a hub for players, fans, and officials to learn about the sport, follow events, view media, and connect with the association.
 
-## React Compiler
+This website is **responsive, user-friendly, and informative**, designed to showcase the growth of Rollball in the country.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🎯 Objectives
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* Promote the sport of Rollball across the Philippines
+* Share news, events, and updates about tournaments and championships
+* Provide galleries of events and training activities
+* Offer a clear platform to contact officials and get involved
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠 Technologies Used
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* **HTML5 & CSS3** – Structure and styling
+* **JavaScript (ES6)** – Dynamic frontend interactions
+* **React 18** – Frontend framework for building UI components
+* **Responsive Design** – Optimized for desktop, tablet, and mobile
+* **Git & GitHub** – Version control and collaboration
+
+---
+
+
+
+---
+
+## 🌐 Features
+
+* **Home Page** – Latest news, events, and announcements
+* **Rollball Section** – Rules, gameplay, and introduction to the sport
+* **About Page** – History and mission of the Philippine Rollball Association
+* **News & Gallery** – Event coverage, photos, and media
+* **Officers Page** – Profiles of association officers
+* **Contact Page** – Inquiry form and contact details
+
+---
+
+## ⚡ How to Run Locally (React + Tailwind)
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/philippine-rollball.git
+cd philippine-rollball
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+3. Start the development server:
+
+```bash
+pnpm run dev
+```
+
+4. Open your browser and visit:
+
+```
+http://localhost:8080
+```
+
+> Tailwind CSS is already configured. You can use Tailwind classes directly in React components.
+
+---
+
+## 🏆 Achievements / Highlights
+
+* Hosted multiple **Rollball World Cup events**
+* Conducted **training and boot camps** nationwide
+* Promoted the sport through social media and local events
+* Encouraged youth participation and grassroots programs
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions from developers, designers, and enthusiasts!
+
+1. Fork the repository
+2. Create a new branch:
+
+```bash
+git checkout -b feature-name
+```
+
+3. Make changes and commit:
+
+```bash
+git commit -m "Add new feature"
+```
+
+4. Push to your branch:
+
+```bash
+git push origin feature-name
+```
+
+5. Submit a pull request
+
+---
+
+## 📧 Contact
+
+* **Email:** [info@philrollball.org.ph](mailto:info@philrollball.org.ph)
+* **Website:** [https://www.philrollball.org.ph](https://www.philrollball.org.ph)
+* **Facebook:** [Philippine Rollball Association](https://www.facebook.com/philrollball)
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+
+---
+
+*Philippine Rollball Association – Promoting Rollball Across the Nation!* 🏀🇵🇭
+
