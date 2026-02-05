@@ -1,0 +1,173 @@
+
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Philippine Blue */
+    --primary: 214 83% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Philippine Red */
+    --secondary: 0 84% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Golden Yellow */
+    --accent: 45 100% 51%;
+    --accent-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 214 83% 35%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(214 83% 35%) 0%,
+      hsl(214 83% 25%) 50%,
+      hsl(0 84% 40%) 100%
+    );
+
+    --gradient-gold: linear-gradient(
+      135deg,
+      hsl(45 100% 51%) 0%,
+      hsl(38 100% 45%) 100%
+    );
+
+    --gradient-blue: linear-gradient(
+      180deg,
+      hsl(214 83% 35%) 0%,
+      hsl(214 83% 25%) 100%
+    );
+
+    --gradient-dark: linear-gradient(
+      180deg,
+      hsl(222 47% 11%) 0%,
+      hsl(222 47% 8%) 100%
+    );
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(222 47% 11% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(222 47% 11% / 0.1),
+      0 2px 4px -2px hsl(222 47% 11% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(222 47% 11% / 0.1),
+      0 4px 6px -4px hsl(222 47% 11% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(222 47% 11% / 0.1),
+      0 8px 10px -6px hsl(222 47% 11% / 0.1);
+
+    --shadow-gold: 0 4px 14px 0 hsl(45 100% 51% / 0.4);
+    --shadow-primary: 0 4px 14px 0 hsl(214 83% 35% / 0.4);
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 214 83% 50%;
+    --secondary: 0 84% 55%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 214 83% 50%;
+  }
+
+  /* v4-safe global border color */
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Bebas Neue", sans-serif;
+    letter-spacing: 0.02em;
+  }
+}
+
+@layer components {
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-gold {
+    background: var(--gradient-gold);
+  }
+
+  .gradient-blue {
+    background: var(--gradient-blue);
+  }
+
+  .gradient-dark {
+    background: var(--gradient-dark);
+  }
+
+  .shadow-gold {
+    box-shadow: var(--shadow-gold);
+  }
+
+  .shadow-primary-glow {
+    box-shadow: var(--shadow-primary);
+  }
+
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+}
