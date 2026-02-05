@@ -1,0 +1,126 @@
+import { Target, Users, Trophy, Zap } from "lucide-react";
+
+const features = [
+  {
+    icon: Zap,
+    title: "Fast-Paced Action",
+    description: "Rollball combines the excitement of handball and basketball on roller skates for non-stop action.",
+  },
+  {
+    icon: Users,
+    title: "Team Spirit",
+    description: "Build lasting friendships and learn the value of teamwork in this collaborative sport.",
+  },
+  {
+    icon: Trophy,
+    title: "Competitive Excellence",
+    description: "Compete at local, national, and international levels representing the Philippines.",
+  },
+  {
+    icon: Target,
+    title: "Skill Development",
+    description: "Develop agility, coordination, and strategic thinking while having fun.",
+  },
+];
+
+export function AboutSection() {
+  return (
+    <section id="about" className="py-20 md:py-32 bg-background">
+      <div className="container mx-auto px-4">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
+            About Rollball
+          </span>
+          <h2 className="font-display text-4xl md:text-6xl text-foreground mb-4">
+            WHAT IS <span className="text-primary">ROLLBALL?</span>
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            Rollball is an exciting team sport played on quad roller skates, 
+            combining elements of handball, basketball, and throwball.
+          </p>
+        </div>
+
+        {/* Main Content */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Image/Visual */}
+          <div className="relative">
+            <div className="aspect-square rounded-2xl overflow-hidden bg-muted relative">
+              <div className="absolute inset-0 gradient-hero opacity-90" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center text-primary-foreground p-8">
+                  <div className="w-24 h-24 mx-auto mb-6 rounded-full gradient-gold flex items-center justify-center shadow-gold">
+                    <span className="font-display text-4xl text-accent-foreground">🛼</span>
+                  </div>
+                  <h3 className="font-display text-3xl mb-4">ROLL WITH US</h3>
+                  <p className="text-primary-foreground/80">
+                    Join hundreds of athletes across the Philippines
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Floating Badge */}
+            <div className="absolute -bottom-6 -right-6 bg-secondary text-secondary-foreground px-6 py-4 rounded-xl shadow-lg">
+              <div className="font-display text-2xl">Since 2018</div>
+              <div className="text-sm opacity-80">Official Federation</div>
+            </div>
+          </div>
+
+          {/* Features Grid */}
+          <div className="grid sm:grid-cols-2 gap-6">
+            {features.map((feature, index) => (
+              <div
+                key={feature.title}
+                className="p-6 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors group"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="w-12 h-12 rounded-lg gradient-blue flex items-center justify-center mb-4 group-hover:shadow-primary-glow transition-shadow">
+                  <feature.icon className="w-6 h-6 text-primary-foreground" />
+                </div>
+                <h3 className="font-display text-xl text-foreground mb-2">{feature.title}</h3>
+                <p className="text-muted-foreground text-sm">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Rules Summary */}
+        <div className="mt-20 p-8 md:p-12 rounded-2xl bg-muted/50 border border-border">
+          <h3 className="font-display text-3xl text-foreground text-center mb-8">
+            HOW IT&apos;S <span className="text-primary">PLAYED</span>
+          </h3>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto rounded-full bg-primary text-primary-foreground flex items-center justify-center font-display text-2xl mb-4">
+                1
+              </div>
+              <h4 className="font-semibold text-foreground mb-2">The Setup</h4>
+              <p className="text-muted-foreground text-sm">
+                Two teams of 6 players each on roller skates compete on a rectangular court
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto rounded-full bg-secondary text-secondary-foreground flex items-center justify-center font-display text-2xl mb-4">
+                2
+              </div>
+              <h4 className="font-semibold text-foreground mb-2">The Game</h4>
+              <p className="text-muted-foreground text-sm">
+                Pass and shoot the ball into the opponent&apos;s goal within 30-second possessions
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto rounded-full gradient-gold text-accent-foreground flex items-center justify-center font-display text-2xl mb-4 shadow-gold">
+                3
+              </div>
+              <h4 className="font-semibold text-foreground mb-2">The Victory</h4>
+              <p className="text-muted-foreground text-sm">
+                The team with the most goals at the end of two 20-minute halves wins
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
