@@ -24,6 +24,7 @@ const features = [
 ];
 
 export function AboutSection() {
+    
   return (
     <section id="about" className="py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4">
@@ -44,28 +45,20 @@ export function AboutSection() {
         {/* Main Content */}
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Image/Visual */}
-          <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden bg-muted relative">
-              <div className="absolute inset-0 gradient-hero opacity-90" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-primary-foreground p-8">
-                  <div className="w-24 h-24 mx-auto mb-6 rounded-full gradient-gold flex items-center justify-center shadow-gold">
-                    <span className="font-display text-4xl text-accent-foreground">🛼</span>
-                  </div>
-                  <h3 className="font-display text-3xl mb-4">ROLL WITH US</h3>
-                  <p className="text-primary-foreground/80">
-                    Join hundreds of athletes across the Philippines
-                  </p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Floating Badge */}
-            <div className="absolute -bottom-6 -right-6 bg-secondary text-secondary-foreground px-6 py-4 rounded-xl shadow-lg">
-              <div className="font-display text-2xl">Since 2018</div>
-              <div className="text-sm opacity-80">Official Federation</div>
-            </div>
+          <div className="aspect-video bg-cover bg-center rounded-2xl shadow-lg" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80)" }} />
+
+           {/* Text Content */}
+           <div className="text-center lg:text-left">
+            <h3 className="font-display text-3xl text-foreground mb-4">The Philippine Rollball Federation</h3>
+            <p className="text-muted-foreground mb-6">
+              Founded in 2018, the Philippine Rollball Federation is dedicated to promoting and developing the sport of rollball across the country. We organize tournaments, train athletes, and work to establish rollball as a recognized sport in the Philippines.
+            </p>
+            <p className="text-muted-foreground">
+              Our mission is to provide a platform for athletes to compete at national and international levels while fostering a culture of sportsmanship and excellence.
+            </p>
           </div>
+
+
 
           {/* Features Grid */}
           <div className="grid sm:grid-cols-2 gap-6">
@@ -83,6 +76,7 @@ export function AboutSection() {
               </div>
             ))}
           </div>
+
         </div>
 
         {/* Rules Summary */}

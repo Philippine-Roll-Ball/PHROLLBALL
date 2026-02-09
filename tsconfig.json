@@ -2,6 +2,7 @@
   "files": [],
   "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
+     "types": ["node"],
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
     "paths": {
@@ -12,6 +13,7 @@
     "skipLibCheck": true,
     "allowJs": true,
     "noUnusedLocals": false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    
   }
 }

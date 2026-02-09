@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Play, ChevronRight } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
 import heroBg from "@/assets/hero-bg.jpg";
+import heroBg1 from "@/assets/herobg.jpg";
+import heroBg2 from "@/assets/herobg2.jpg";
+import { useToast } from "@/hook/use-toast";
 
 const slides = [
   {
@@ -18,7 +21,7 @@ const slides = [
     tagline: "TODAY",
     description: "Be part of over 500 active players across 17 regions. Train with the best coaches and compete in national tournaments.",
     badge: "50+ Events Yearly",
-    image: heroBg,
+    image: heroBg1,
   },
   {
     title: "COMPETE",
@@ -26,14 +29,14 @@ const slides = [
     tagline: "CHAMPION",
     description: "From grassroots to elite level competition. Represent the Philippines in international rollball championships.",
     badge: "International Recognition",
-    image: heroBg,
+    image: heroBg2,
   },
 ];
 
 export function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
+ const { toast } = useToast();
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   }, []);
@@ -59,8 +62,10 @@ export function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-[80vh] pt-20 md:pt-24 flex items-center overflow-hidden"
+      className="relative min-h-[80vh] pt-20 md:pt-21 flex items-center overflow-hidden"
     >
+  
+
       {/* Background Images with Transition */}
       {slides.map((s, index) => (
         <div
@@ -68,6 +73,7 @@ export function HeroSection() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000"
           style={{
             backgroundImage: `url(${s.image})`,
+             backgroundPosition: "center top",
             opacity: currentSlide === index ? 1 : 0,
           }}
         />
@@ -135,6 +141,7 @@ export function HeroSection() {
                 <Play className="mr-1 h-4 w-4" />
                 Watch Video
               </Button>
+              
             </div>
 
             {/* Stats - Always Visible */}
