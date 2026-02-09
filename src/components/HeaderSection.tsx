@@ -1,6 +1,8 @@
+import Logo from "@/assets/PRBALOGO.svg"
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -10,6 +12,7 @@ const navLinks = [
   { label: "Gallery", href: "#gallery" },
   { label: "News", href: "#news" },
   { label: "Contact", href: "#contact" },
+  { label: "login", href: "/login" },
 ];
 
 export function HeaderSection() {
@@ -22,10 +25,11 @@ export function HeaderSection() {
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-full gradient-hero flex items-center justify-center">
-              <span className="text-primary-foreground font-display text-xl">PR</span>
-            </div>
+             <img src={Logo} alt="PRBA Logo" />
+             </div>
+           
             <span className="font-display text-2xl text-foreground hidden sm:block">
-              Philippine <span className="text-primary">Rollball</span>
+              Philippine <span className="text-primary">Rollball Federation</span>
             </span>
           </a>
 
