@@ -22,3 +22,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Server related files
+../vs/
+../debug/
+
+../bin
+
+.vs/
+
+obj
+
+appsettings.json
+
+
+
