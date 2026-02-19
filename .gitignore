@@ -27,7 +27,6 @@ dist-ssr
 ../vs/
 ../debug/
 
-../bin
 
 .vs/
 
@@ -35,5 +34,8 @@ obj
 
 appsettings.json
 
+bin
 
 
+# env
+.env
