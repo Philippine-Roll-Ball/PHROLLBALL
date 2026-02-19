@@ -1,4 +1,6 @@
 import { Target, Users, Trophy, Zap } from "lucide-react";
+import { useEffect, useState } from "react";
+import { getTestJson } from "../services/testService";
 
 const features = [
   {
@@ -25,9 +27,27 @@ const features = [
 
 export function AboutSection() {
     
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    getTestJson()
+      .then(data => setMessage(data.message))
+      .catch(err => console.error("API Error:", err));
+  }, []);
+
+
   return (
+
     <section id="about" className="py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4">
+
+        {/* API Connection Message */}
+        {message && (
+          <div className="mb-6 px-4 py-3 rounded-lg bg-green-500/10 border border-green-500 text-green-500 text-sm font-mono text-center">
+             API Connected: <strong>{message}</strong>
+          </div>
+        )}
+
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
