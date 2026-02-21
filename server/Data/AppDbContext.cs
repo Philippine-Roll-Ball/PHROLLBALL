@@ -23,10 +23,11 @@ namespace server.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Player>()
-                .HasOne(t => t.TeamAssigned)
-                .WithMany(p => p.Players)
-                .HasForeignKey(p => p.TeamAssigned.TeamID);
+            base.OnModelCreating(modelBuilder);
+
+            // TournamentTeam Composite PK
+            modelBuilder.Entity<TournamentTeam>()
+                .HasKey(tt => new { tt.TournamentID, tt.TeamID });
 
 
         }
