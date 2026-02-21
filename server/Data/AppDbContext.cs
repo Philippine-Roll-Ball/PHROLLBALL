@@ -42,6 +42,9 @@ namespace server.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
 
+            modelBuilder.Entity<MatchTeam>()
+                .HasKey(mt => new { mt.MatchID, mt.TeamID });
+
         }
 
     }
