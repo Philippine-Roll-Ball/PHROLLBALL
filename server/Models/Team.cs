@@ -1,34 +1,38 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace server.Models
 {
     public class Team
     {
-        [Required]
+        [Key]
         public int TeamID { get; set; }
 
         [Required]
+        public string? TeamName { get; set; }
+
+        public int? CoachID { get; set; }
+
+        [ForeignKey(nameof(CoachID))]
         public Coach? CoachAssigned { get; set; }
 
         [Required]
-        public List<Player>? Players { get; set; }
-
-        [Required]
+        
         public DateTime? DateCreated { get; set; }
-
-        [Required]
+     
         public int Wins { get; set; }
-
-        [Required]
+      
         public int Losses { get; set; }
-
-        [Required]
-        public List<Match>? Matches { get; set; }
-
-        [Required]
         public int? TeamScore { get; set; }
-
-        [Required]
         public int? FoulNumber { get; set; }
+
+        public int? Matches { get; set; }
+
+        public List<Player>? Players { get; set; }
+        
+        
+        public List<MatchTeam>? MatchTeams{ get; set; }
+
+        public List<TournamentTeam>? TournamentTeams { get; set; }
     }
 }
