@@ -16,5 +16,7 @@ namespace server.Data
 
         public DbSet<Coach> Coaches { get; set; }
 
+        public DbSet<Team> Teams { get; set; }
+
     }
 }
