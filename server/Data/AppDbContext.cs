@@ -35,6 +35,12 @@ namespace server.Data
                 .HasForeignKey(tt => tt.TeamID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<TournamentTeam>()
+                .HasOne(tt => tt.Tournament)
+                .WithMany(tt => tt.TournamentTeams)
+                .HasForeignKey(tt => tt.TournamentID)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
         }
 
