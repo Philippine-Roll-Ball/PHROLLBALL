@@ -17,6 +17,10 @@ namespace server.Models
 
         public string? Location { get; set; }
 
+        [Required]
+        [MaxLength(20)]
+        public string? TournamentType { get; set; }
+
         public List<TournamentTeam>? TournamentTeams { get; set; }
     }
 }
