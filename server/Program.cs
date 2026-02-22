@@ -1,7 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using server.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
-
+builder.Services.AddDbContext<AppDbContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+    sqlServerOptionsAction: sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(10),
+            errorNumbersToAdd: null);
+    }));
 
 
 // Add services to the container.
