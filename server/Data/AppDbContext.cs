@@ -57,6 +57,12 @@ namespace server.Data
                 .HasForeignKey(mt => mt.MatchID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Coach>()
+                .HasOne(c => c.Team)
+                .WithOne(t => t.CoachAssigned)
+                .HasForeignKey<Coach>(c => c.TeamAssigned)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
 
     }
