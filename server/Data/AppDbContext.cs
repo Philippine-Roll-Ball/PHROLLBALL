@@ -69,6 +69,21 @@ namespace server.Data
                 .HasForeignKey(p => p.TeamID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Coach>()
+                .Property(c => c.OtherSports)
+                .HasConversion(
+                v => string.Join(',', v ?? new List<string?>()),
+                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                           .Select(s => (string?)s).ToList()
+                );
+
+            modelBuilder.Entity<Player>()
+                .Property(p => p.OtherSports)
+                .HasConversion(
+                    v => string.Join('v', v ?? new List<string?>()),
+                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(s => (string?)s).ToList()
+                );
         }
 
     }
