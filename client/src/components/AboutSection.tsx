@@ -24,7 +24,6 @@ const features = [
     description: "Develop agility, coordination, and strategic thinking while having fun.",
   },
 ];
-
 export function AboutSection() {
     
   const [message, setMessage] = useState("");
@@ -41,7 +40,8 @@ export function AboutSection() {
     <section id="about" className="py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4">
 
-        {/* API Connection Message */}
+              {/* API Connection Message */}
+
         {message && (
           <div className="mb-6 px-4 py-3 rounded-lg bg-green-500/10 border border-green-500 text-green-500 text-sm font-mono text-center">
              API Connected: <strong>{message}</strong>

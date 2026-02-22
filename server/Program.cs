@@ -1,5 +1,9 @@
 var builder = WebApplication.CreateBuilder(args);
 
+
+
+
+
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
@@ -29,8 +33,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("ReactApp");
-
-app.UseAuthorization();
+                                                         
+app.UseAuthorization();                                  
 
 app.MapControllers();
 
