@@ -79,3 +79,5 @@
 ### TournamentTeams (Junction Table)
 - TeamID (Foreign)
 - TournamentID (Foreign)
+- TeamStanding (Required)
+
