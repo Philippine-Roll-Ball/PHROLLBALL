@@ -160,10 +160,15 @@ export function GallerySection() {
             </button>
 
             <div className="max-w-4xl w-full aspect-video rounded-xl overflow-hidden">
-              <div className="w-full h-full gradient-hero flex items-center justify-center">
-                <div className="text-center text-primary-foreground">
-                  <h3 className="font-display text-3xl mb-2">{filteredImages[currentImage]?.title}</h3>
-                  <p className="opacity-80">{filteredImages[currentImage]?.category}</p>
+              <div className="max-w-4xl w-full aspect-video rounded-xl overflow-hidden relative">
+                <img
+                  src={filteredImages[currentImage]?.src}
+                  alt={filteredImages[currentImage]?.title}
+                  className="w-full h-full object-cover rounded-xl"
+                />
+                <div className="absolute bottom-4 left-4 text-primary-foreground bg-black/40 p-2 rounded">
+                  <h3 className="font-display text-2xl">{filteredImages[currentImage]?.title}</h3>
+                  <p className="text-sm">{filteredImages[currentImage]?.category}</p>
                 </div>
               </div>
             </div>
