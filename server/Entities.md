@@ -75,3 +75,7 @@
 - DateCreated (Required)
 - Duration (Required)
 - Location (Required)
+
+### TournamentTeams (Junction Table)
+- TeamID (Foreign)
+- TournamentID (Foreign)
