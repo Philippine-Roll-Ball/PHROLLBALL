@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hook/useAuth";
 
 export default function Login() {
   const { user } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // states for http request
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // kung naka-login na, diretso admin
   if (user) return <Navigate to="/admin" replace />;
@@ -18,7 +23,7 @@ export default function Login() {
     console.log("Logged in with:", email, password);
 
     // reload para bumalik yung mock user
-    window.location.href = "/admin";
+    // window.location.href = "/admin";
   };
 
   return (
