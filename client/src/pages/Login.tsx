@@ -16,8 +16,16 @@ export default function Login() {
   // kung naka-login na, diretso admin
   if (user) return <Navigate to="/admin" replace />;
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch("")
+    } catch (err: any) {
+      
+    }
 
     // MOCK ONLY – walang validation
     console.log("Logged in with:", email, password);
