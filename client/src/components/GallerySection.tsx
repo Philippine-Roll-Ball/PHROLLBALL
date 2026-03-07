@@ -1,40 +1,58 @@
 import { useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-
+import national from "../assets/hero-bg.jpg";
+import dubai from "../assets/gallery/dubai.jpg";
+import training from "../assets/gallery/training.jpg";
+import dona from "../assets/gallery/dona.jpg";
+import phteam from "../assets/gallery/phteam.jpg";
+import roll from "../assets/gallery/roll.jpg";
 const galleryImages = [
   {
     id: 1,
     title: "National Championship 2025",
     category: "Championship",
+    src: national,
   },
-  {
+   {
     id: 2,
-    title: "Youth Training Camp",
-    category: "Training",
+    title: "World Cup in Dubai",
+    category: "Championship",
+    src: dubai,
   },
   {
     id: 3,
-    title: "Visayas Regional Finals",
-    category: "Regional",
+    title: "Youth Training Camp",
+    category: "Training",
+    src: training,
   },
-  {
-    id: 4,
-    title: "Team Philippines",
-    category: "National Team",
-  },
+  
+  // {
+  //   id: 4,
+  //   title: "Visayas Regional Finals",
+  //   category: "Regional",
+  //   src: dona,
+  // },
   {
     id: 5,
-    title: "Awards Ceremony",
-    category: "Events",
+    title: "Team Philippines",
+    category: "National Team",
+    src: phteam,
   },
   {
     id: 6,
+    title: "Awards Ceremony",
+    category: "Events",
+    src: roll,
+  },
+  {
+    id: 7,
     title: "Community Outreach",
     category: "Community",
+    src: dona,
   },
 ];
 
-const categories = ["All", "Championship", "Training", "Regional", "National Team", "Events", "Community"];
+const categories = ["All", "Championship", "Training", "National Team", "Events", "Community"];
 
 export function GallerySection() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -102,11 +120,11 @@ export function GallerySection() {
               onClick={() => openLightbox(index)}
             >
               {/* Placeholder with gradient - would be replaced with actual images */}
-              <div className={`absolute inset-0 ${
-                index % 3 === 0 ? "gradient-hero" : 
-                index % 3 === 1 ? "gradient-blue" : 
-                "bg-secondary"
-              }`} />
+             <img
+              src={image.src}
+              alt={image.title}
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
               
               {/* Overlay */}
               <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/60 transition-colors flex items-center justify-center">
@@ -142,10 +160,15 @@ export function GallerySection() {
             </button>
 
             <div className="max-w-4xl w-full aspect-video rounded-xl overflow-hidden">
-              <div className="w-full h-full gradient-hero flex items-center justify-center">
-                <div className="text-center text-primary-foreground">
-                  <h3 className="font-display text-3xl mb-2">{filteredImages[currentImage]?.title}</h3>
-                  <p className="opacity-80">{filteredImages[currentImage]?.category}</p>
+              <div className="max-w-4xl w-full aspect-video rounded-xl overflow-hidden relative">
+                <img
+                  src={filteredImages[currentImage]?.src}
+                  alt={filteredImages[currentImage]?.title}
+                  className="w-full h-full object-cover rounded-xl"
+                />
+                <div className="absolute bottom-4 left-4 text-primary-foreground bg-black/40 p-2 rounded">
+                  <h3 className="font-display text-2xl">{filteredImages[currentImage]?.title}</h3>
+                  <p className="text-sm">{filteredImages[currentImage]?.category}</p>
                 </div>
               </div>
             </div>

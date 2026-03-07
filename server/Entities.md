@@ -72,7 +72,17 @@
 
 ### Tournament
 - TournamentID (Primary)
-- ParticipatingTeams (List of Foreign)
 - DateCreated (Required)
 - Duration (Required)
 - Location (Required)
+
+### TournamentTeams (Junction Table)
+- TeamID (Foreign)
+- TournamentID (Foreign)
+- TeamStanding (Required)
+
+
+### MatchTeams (Juction Table) 
+- MatchID (Foreign) 
+- TeamID (Foreign)
+- Score (Required)
