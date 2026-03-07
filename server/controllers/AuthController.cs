@@ -14,12 +14,6 @@ namespace server.controllers
             Console.WriteLine($"Connected Successfully {request.Email} {request.Password}");
             return Ok(new { message = "Connected!" });
         }
-
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] Player request)
-        {
-            return Ok(new { message = "successful registration" });
-        }
     }
 
        
