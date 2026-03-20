@@ -237,6 +237,29 @@ namespace server.Migrations
                     b.ToTable("Players");
                 });
 
+            modelBuilder.Entity("server.Models.QrCode", b =>
+                {
+                    b.Property<string>("SecurityToken")
+                        .HasColumnType("nvarchar(450)")
+                        .HasAnnotation("Relational:JsonPropertyName", "securityToken");
+
+                    b.Property<string>("CreatedByEmail")
+                        .HasColumnType("nvarchar(max)")
+                        .HasAnnotation("Relational:JsonPropertyName", "createdByEmail");
+
+                    b.Property<string>("Data")
+                        .HasColumnType("nvarchar(max)")
+                        .HasAnnotation("Relational:JsonPropertyName", "data");
+
+                    b.Property<string>("EntityType")
+                        .HasColumnType("nvarchar(max)")
+                        .HasAnnotation("Relational:JsonPropertyName", "entityType");
+
+                    b.HasKey("SecurityToken");
+
+                    b.ToTable("Qrcodes");
+                });
+
             modelBuilder.Entity("server.Models.Team", b =>
                 {
                     b.Property<int>("TeamID")
