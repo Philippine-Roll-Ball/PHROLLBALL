@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useAuth } from "@/hook/useAuth";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/config/firebase";
@@ -30,7 +30,7 @@ export default function Login() {
       
       // Redirect to admin panel upon success
       navigate("/admin");
-    } catch (err: any) {
+    } catch (err) {
       console.error("Login failed", err);
       // Clean up the Firebase error message for the user
       setError(err.message.replace("Firebase: ", "")); 
@@ -48,7 +48,7 @@ export default function Login() {
       const userCredential = await signInWithPopup(auth, googleProvider);
       console.log("Google login successful!", userCredential.user);
       navigate("/admin");
-    } catch (err: any) {
+    } catch (err) {
       console.error("Google login failed", err);
       
       if (err.code === 'auth/popup-closed-by-user') {
@@ -71,6 +71,7 @@ export default function Login() {
           </p>
         </div>
 
+      
         {/* Display Error Messages */}
         {error && (
           <div className="mb-4 p-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg text-center">
