@@ -78,10 +78,9 @@ export function AboutSection() {
             </p>
           </div>
 
-
-
-          {/* Features Grid */}
-          <div className="grid sm:grid-cols-2 gap-6">
+        </div>
+         {/* Features Grid */}
+          <div className="grid sm:grid-cols-2 gap-6 mt-10">
             {features.map((feature, index) => (
               <div
                 key={feature.title}
@@ -96,8 +95,6 @@ export function AboutSection() {
               </div>
             ))}
           </div>
-
-        </div>
 
         {/* Rules Summary */}
         <div className="mt-20 p-8 md:p-12 rounded-2xl bg-muted/50 border border-border">

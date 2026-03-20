@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
@@ -15,7 +14,6 @@ import {
   Trophy,
   Eye,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hook/useAuth";
 
 const sidebarItems = [
@@ -35,31 +33,11 @@ const stats = [
 ];
 
 export default function Admin() {
-  const { user, loading, signOut } = useAuth();
+  // We only need 'user' and 'signOut' here now.
+  // The Bouncer (ProtectedRoute) guarantees 'user' will NOT be null by the time this code runs!
+  const { user, signOut } = useAuth();
   const [activeTab, setActiveTab] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
-      </div>
-    );
-  }
-
-  // MOCK behavior: kapag nag sign out
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center space-y-4">
-          <h1 className="text-2xl font-display">Logged out</h1>
-          <Button onClick={() => window.location.reload()}>
-            Reload to Login Again
-          </Button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-muted/30 flex">
@@ -120,9 +98,7 @@ export default function Admin() {
         />
       )}
 
-      {/* Main */}
       <div className="flex-1 flex flex-col min-h-screen">
-        {/* Top Bar */}
         <header className="bg-card border-b border-border px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button onClick={() => setSidebarOpen(true)} className="lg:hidden">
@@ -132,11 +108,11 @@ export default function Admin() {
           </div>
           <div className="flex items-center gap-3">
             <span className="text-sm text-muted-foreground hidden sm:block">
-              {user.email}
+              {user!.email}
             </span>
             <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold">
-                {user.email.charAt(0).toUpperCase()}
+                {user!.email?.charAt(0).toUpperCase()}
               </span>
             </div>
           </div>

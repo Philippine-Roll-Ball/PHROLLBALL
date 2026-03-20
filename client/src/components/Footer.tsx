@@ -1,4 +1,6 @@
-import { Facebook, Instagram, Youtube, Mail } from "lucide-react";
+import logo from "../assets/PRBALOGO.svg";
+
+import { Facebook, Youtube, Mail } from "lucide-react";
 
 const footerLinks = {
   federation: [
@@ -30,8 +32,8 @@ export function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full gradient-gold flex items-center justify-center shadow-gold">
-                <span className="font-display text-2xl text-accent-foreground">PR</span>
+              <div className="w-12 h-12 rounded-full flex items-center justify-center bg-primary-foreground/10">
+               <img src={logo} alt="Philippine Rollball Logo" />
               </div>
               <div>
                 <h3 className="font-display text-2xl">Philippine Rollball</h3>
@@ -44,25 +46,19 @@ export function Footer() {
             </p>
             <div className="flex gap-4">
               <a 
-                href="#" 
+                href="https://www.facebook.com/philippinerollballassociation" 
                 className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a 
-                href="#" 
-                className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a 
-                href="#" 
+                href="https://www.youtube.com/@PhilippineRollball" 
                 className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
               >
                 <Youtube className="w-5 h-5" />
               </a>
               <a 
-                href="#" 
+                href="mailto:info@philippinerollball.org" 
                 className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
               >
                 <Mail className="w-5 h-5" />
