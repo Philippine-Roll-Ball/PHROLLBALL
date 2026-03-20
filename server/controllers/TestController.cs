@@ -12,7 +12,7 @@ namespace server.Controllers
         {
             Console.WriteLine("Received GET request at /api/test");
 
-            return Ok(new { Message = "What the heck?!" });
+            return Ok(new { Message = "What the sdlfjdslfjdslkj?!" });
 
         }
     }

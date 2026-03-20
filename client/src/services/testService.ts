@@ -11,6 +11,6 @@ const apiClient = axios.create({
 
 // GET /api/test
 export const getTestJson = async (): Promise<{ message: string }> => {
-  const response = await apiClient.get("/api/test");
+  const response = await apiClient.get("/api/charles");
   return response.data;
 };
