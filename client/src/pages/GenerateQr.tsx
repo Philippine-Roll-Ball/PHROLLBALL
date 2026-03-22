@@ -73,7 +73,8 @@ export function GenerateQR() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to register QR data in the database. It might already exist.");
+        const errorText = await response.text();
+        throw new Error(`${errorText}`);
       }
 
       setIsRegistered(true); 
