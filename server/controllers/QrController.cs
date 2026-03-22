@@ -49,6 +49,35 @@ namespace server.controllers
 
             return Ok("QR Successfully Registered!");
         }
+
+        [HttpGet("verify")]
+        public async Task<IActionResult> Verify([FromQuery] string entityType, [FromQuery] string data, [FromQuery] string token)
+        {
+
+            if (string.IsNullOrEmpty(entityType) || string.IsNullOrEmpty(data) || string.IsNullOrEmpty(token))
+            {
+                return BadRequest(new { message = "Missing verification parameters." });
+            }
+
+            try
+            {
+                var validQr = await _context.Qrcodes.FirstOrDefaultAsync(d =>
+                    d.Data == data &&
+                    d.SecurityToken == token); // <-- Fixed this comparison!
+
+                if (validQr == null)
+                {
+                    return BadRequest(new { message = "Invalid QR Code or Token mismatch." });
+                }
+
+                return Ok(new { message = $"Qr Code with Name {data} is valid" });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"SERVER CRASHED: {ex.Message}");
+                return StatusCode(500, new { message = "Internal Server Error" });
+            }
+        }
     }
 
        
