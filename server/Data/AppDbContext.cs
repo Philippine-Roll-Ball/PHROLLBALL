@@ -21,6 +21,8 @@ namespace server.Data
 
         public DbSet<MatchTeam> MatchTeams { get; set; }
 
+        public DbSet<QrCode> Qrcodes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -84,6 +86,7 @@ namespace server.Data
                     v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)
                     .Select(s => (string?)s).ToList()
                 );
+
         }
 
     }

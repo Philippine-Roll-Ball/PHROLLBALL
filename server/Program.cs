@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 string? credentialPath = builder.Configuration["Firebase:AdminKeyPath"];
 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialPath);
 
+builder.Services.AddSqlServer<AppDbContext>(
+    builder.Configuration.GetConnectionString("DefaultConnection"),
+    sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()
+);
 
-if(FirebaseApp.DefaultInstance == null)
+if (FirebaseApp.DefaultInstance == null)
 {
     var firebaseApp = FirebaseApp.Create(new AppOptions
     {

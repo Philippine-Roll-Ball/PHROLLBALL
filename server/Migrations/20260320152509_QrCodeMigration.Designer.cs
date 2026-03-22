@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using server.Data;
 
@@ -11,9 +12,11 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260320152509_QrCodeMigration")]
+    partial class QrCodeMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,29 +238,6 @@ namespace server.Migrations
                     b.HasIndex("TeamID");
 
                     b.ToTable("Players");
-                });
-
-            modelBuilder.Entity("server.Models.QrCode", b =>
-                {
-                    b.Property<string>("SecurityToken")
-                        .HasColumnType("nvarchar(450)")
-                        .HasAnnotation("Relational:JsonPropertyName", "securityToken");
-
-                    b.Property<string>("CreatedByEmail")
-                        .HasColumnType("nvarchar(max)")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdByEmail");
-
-                    b.Property<string>("Data")
-                        .HasColumnType("nvarchar(max)")
-                        .HasAnnotation("Relational:JsonPropertyName", "data");
-
-                    b.Property<string>("EntityType")
-                        .HasColumnType("nvarchar(max)")
-                        .HasAnnotation("Relational:JsonPropertyName", "entityType");
-
-                    b.HasKey("SecurityToken");
-
-                    b.ToTable("Qrcodes");
                 });
 
             modelBuilder.Entity("server.Models.Team", b =>

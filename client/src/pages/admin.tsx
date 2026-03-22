@@ -13,16 +13,20 @@ import {
   UserPlus,
   Trophy,
   Eye,
+  QrCode,
 } from "lucide-react";
 import { useAuth } from "@/hook/useAuth";
+import { GenerateQR } from "./GenerateQr";
 
 const sidebarItems = [
   { icon: LayoutDashboard, label: "Dashboard", key: "dashboard" },
   { icon: Users, label: "Members", key: "members" },
   { icon: Calendar, label: "Events", key: "events" },
+  { icon: QrCode, label: "Generate QR", key: "generate QR" },
   { icon: Image, label: "Gallery", key: "gallery" },
   { icon: Newspaper, label: "News", key: "news" },
   { icon: Settings, label: "Settings", key: "settings" },
+
 ];
 
 const stats = [
@@ -137,6 +141,10 @@ export default function Admin() {
                   <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
+            </div>
+          ) : activeTab === "generate QR" ? (
+            <div className="animate-in fade-in duration-300">
+              <GenerateQR />
             </div>
           ) : (
             <div className="bg-card rounded-xl border p-12 text-center">
