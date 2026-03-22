@@ -32,7 +32,7 @@ namespace server.controllers
 
             if (existingQrCode != null)
             {
-                return BadRequest(new { message = "QR Code data already exists." });
+                return BadRequest("Failed to Register: QR Code data already exists");
             }
 
             // Create a new QrCode and save it to the database
@@ -47,7 +47,7 @@ namespace server.controllers
             await _context.Qrcodes.AddAsync(qrCodeRecord);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Connected!" });
+            return Ok("QR Successfully Registered!");
         }
     }
 
