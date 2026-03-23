@@ -60,7 +60,7 @@ export function GenerateQR() {
     try {
       const authToken = await user?.getIdToken();
 
-      const response = await fetch(`${BASE_URL}/api/qr/register`, {
+      const response = await fetch(`${BASE_URL}api/qr/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
