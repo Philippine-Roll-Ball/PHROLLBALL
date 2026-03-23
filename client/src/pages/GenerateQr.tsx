@@ -10,8 +10,10 @@ const ENTITY_TYPES = [
   { id: "event", label: "Event", placeholder: "e.g., EVT-NAT-2026" },
   { id: "document", label: "Document", placeholder: "e.g., DOC-CERT-001" }, 
 ];
+//GET VITE CLIENT 
+const PUBLIC_BASE_URL = import.meta.env.VITE_CLIENT_URL;
 
-const PUBLIC_BASE_URL = "http://localhost:8080/verify"; 
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 // Helper function to generate a random 8-character token
 const generateSecureToken = () => {
@@ -58,7 +60,7 @@ export function GenerateQR() {
     try {
       const authToken = await user?.getIdToken();
 
-      const response = await fetch("https://localhost:7190/api/qr/register", {
+      const response = await fetch(`${BASE_URL}/api/qr/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

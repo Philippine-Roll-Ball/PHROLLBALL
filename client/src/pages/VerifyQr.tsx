@@ -16,6 +16,7 @@ export function VerifyQr() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [recordData, setRecordData] = useState<any>(null);
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     // Automatically verify when the page loads
     const verifyDocument = async () => {
@@ -29,7 +30,7 @@ export function VerifyQr() {
         // Call your ASP.NET Core API
         // Make sure the port matches your backend (e.g., 5001)
         const response = await fetch(
-          `https://localhost:7190/api/qr/verify?entityType=${entityType}&data=${id}&token=${token}`
+          `${API_BASE_URL}/api/qr/verify?entityType=${entityType}&data=${id}&token=${token}`
         );
 
         const result = await response.json();
