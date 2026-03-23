@@ -20,13 +20,13 @@ jobs:
           dotnet-version: '8.0.x' # Match your project version
 
       - name: Restore dependencies
-        run: dotnet restore server/Server.csproj # Adjust path to your .csproj
+        run: dotnet restore server/server.csproj # Adjust path to your .csproj
 
       - name: Build
-        run: dotnet build server/Server.csproj --configuration Release --no-restore
+        run: dotnet build server/server.csproj --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish server/Server.csproj -c Release -o ./publish
+        run: dotnet publish server/server.csproj -c Release -o ./publish
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
