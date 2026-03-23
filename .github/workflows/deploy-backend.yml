@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'server/**' # Only trigger if changes are made to the server folder
+    workflow_dispatch:
 
 jobs:
   build-and-deploy:
