@@ -66,7 +66,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("VercelPolicy", policy =>
     {
-        policy.WithOrigins("https://vercel.app")
+        policy.WithOrigins("https://phrollball.vercel.app/")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
