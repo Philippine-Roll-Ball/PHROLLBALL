@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";  
 import Admin from "./pages/admin";
+import VerifyQr from "./pages/VerifyQr";
 
 import Unauthorized from "./pages/Unauthorized"; 
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -25,6 +26,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/verify" element={<VerifyQr />} />
             <Route path="/register" element={<Register />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
 

@@ -11,7 +11,7 @@ const ENTITY_TYPES = [
   { id: "document", label: "Document", placeholder: "e.g., DOC-CERT-001" }, 
 ];
 
-const PUBLIC_BASE_URL = "https://rollball.ph/verify"; 
+const PUBLIC_BASE_URL = "http://localhost:8080/verify"; 
 
 // Helper function to generate a random 8-character token
 const generateSecureToken = () => {
@@ -45,8 +45,8 @@ export function GenerateQR() {
     setSecurityToken(newToken);
     
     // 🌟 Attach the token to the URL as a query parameter
-    const verificationUrl = `${PUBLIC_BASE_URL}/${selectedEntity}/${inputValue}?token=${newToken}`;
-    
+  const verificationUrl = `${PUBLIC_BASE_URL}?type=${selectedEntity}&data=${inputValue}&token=${newToken}`;
+  
     setPreviewUrl(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(verificationUrl)}`);
   };
 
@@ -73,7 +73,8 @@ export function GenerateQR() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to register QR data in the database. It might already exist.");
+        const errorText = await response.text();
+        throw new Error(`${errorText}`);
       }
 
       setIsRegistered(true); 
@@ -179,7 +180,7 @@ export function GenerateQR() {
             {isRegistered ? "Secure QR Code Registered!" : "QR Code Preview"}
           </h3>
           <p className="text-xs text-muted-foreground mb-4 break-all bg-muted p-2 rounded">
-            <strong>URL:</strong> {PUBLIC_BASE_URL}/{selectedEntity}/{inputValue}?token={securityToken}
+            <strong>URL:</strong> {PUBLIC_BASE_URL}?type={selectedEntity}&data={inputValue}&token={securityToken}
           </p>
           
           <div className={`p-4 inline-block rounded-xl border shadow-sm mb-6 transition-colors duration-300 ${isRegistered ? 'bg-green-50 border-green-200' : 'bg-white'}`}>
