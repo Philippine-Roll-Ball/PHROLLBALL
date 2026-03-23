@@ -57,7 +57,8 @@ if(builder.Environment.IsDevelopment())
         {
             policy.WithOrigins("http://localhost:8080")
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowCredentials();
         });
     });
 }
@@ -68,7 +69,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("https://phrollball.vercel.app/")
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
