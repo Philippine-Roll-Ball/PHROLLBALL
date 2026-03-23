@@ -47,11 +47,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+//check if the environment is development, if so, allow CORS for localhost:8080 (where the React app is running)
+
+if(builder.Environment.IsDevelopment())
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("ReactApp", policy =>
+        {
+            policy.WithOrigins("http://localhost:8080")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+    });
+}
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("ReactApp", policy =>
+    options.AddPolicy("VercelPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:8080")
+        policy.WithOrigins("https://vercel.app")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -74,7 +89,11 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
-app.UseCors("ReactApp");
+if(builder.Environment.IsDevelopment())
+{
+    app.UseCors("ReactApp");
+}
+app.UseCors("VercelPolicy");
 
 app.UseAuthentication();                                                         
 app.UseAuthorization();                                  
