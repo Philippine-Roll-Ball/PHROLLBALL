@@ -47,7 +47,7 @@ export function GenerateQR() {
     setSecurityToken(newToken);
     
     // 🌟 Attach the token to the URL as a query parameter
-  const verificationUrl = `${PUBLIC_BASE_URL}verify?type=${selectedEntity}&data=${inputValue}&token=${newToken}`;
+  const verificationUrl = `${PUBLIC_BASE_URL}/verify?type=${selectedEntity}&data=${inputValue}&token=${newToken}`;
   
     setPreviewUrl(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(verificationUrl)}`);
   };
