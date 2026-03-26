@@ -8,8 +8,8 @@ using server.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 
-string? credentialPath = builder.Configuration["Firebase:AdminKeyPath"];
-Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialPath);
+string? firebaseJson = builder.Configuration["Firebase:AdminKeyPath"];
+// Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", firebaseJson);
 
 builder.Services.AddSqlServer<AppDbContext>(
     builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -18,9 +18,22 @@ builder.Services.AddSqlServer<AppDbContext>(
 
 if (FirebaseApp.DefaultInstance == null)
 {
+    GoogleCredential credential;
+
+    if (!string.IsNullOrEmpty(firebaseJson) && firebaseJson.Trim().StartsWith("{"))
+    {
+        credential = GoogleCredential.FromJson(firebaseJson);
+    }
+    else 
+    {
+        // Fallback for local development if you are using a path to a file
+        string? credentialPath = builder.Configuration["Firebase:AdminKeyPath"];
+        credential = GoogleCredential.FromFile(credentialPath);
+    }
+
     var firebaseApp = FirebaseApp.Create(new AppOptions
     {
-        Credential = GoogleCredential.GetApplicationDefault()
+        Credential = credential
     });
     builder.Services.AddSingleton(firebaseApp);
 } else
