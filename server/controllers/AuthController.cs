@@ -14,7 +14,17 @@ namespace server.controllers
             Console.WriteLine($"Connected Successfully {request.Email} {request.Password}");
             return Ok(new { message = "Connected!" });
         }
+
+        [HttpGet("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+            Console.WriteLine("Connected Successfully");
+            return Ok(new {message = "Registration Successful!"});
+        }
+        
     }
+
+  
 
        
 }
