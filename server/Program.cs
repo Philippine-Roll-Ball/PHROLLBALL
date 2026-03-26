@@ -62,25 +62,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 //check if the environment is development, if so, allow CORS for localhost:8080 (where the React app is running)
 
-if(builder.Environment.IsDevelopment())
-{
-    builder.Services.AddCors(options =>
-    {
-        options.AddPolicy("ReactApp", policy =>
-        {
-            policy.WithOrigins("http://localhost:8080")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod()
-                  .AllowCredentials();
-        });
-    });
-}
-
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("VercelPolicy", policy =>
+    options.AddPolicy("PrbfPolicy", policy =>
     {
-        policy.WithOrigins("https://phrollball.vercel.app")
+        policy.WithOrigins(
+                "http://localhost:8080",      // Local Development
+                "http://localhost:5173",      // Standard Vite Port (just in case)
+                "https://phrollball.vercel.app" // Production Frontend
+              )
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -88,33 +78,16 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-
-
 app.UseHttpsRedirection();
-if(builder.Environment.IsDevelopment())
-{
-    app.UseCors("ReactApp");
-}
-app.UseCors("VercelPolicy");
 
-app.UseAuthentication();                                                         
-app.UseAuthorization();                                  
+app.UseCors("PrbfPolicy");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
-
 app.MapGet("/", () => "PRBF API Is Running!");
-
 app.Run();
