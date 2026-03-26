@@ -115,4 +115,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapGet("/", () => "PRBF API Is Running!");
+
 app.Run();
