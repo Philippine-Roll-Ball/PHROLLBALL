@@ -1,15 +1,19 @@
-name: Deploy ASP.NET Core Backend to Azure
+name: Build & Test Backend
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'server/**' # Only trigger if changes are made to the server folder
-  workflow_dispatch:
+      - 'server/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'server/**'
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,20 +22,10 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x' # Match your project version
+          dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore server/server.csproj # Adjust path to your .csproj
+        run: dotnet restore server/server.csproj
 
       - name: Build
         run: dotnet build server/server.csproj --configuration Release --no-restore
-
-      - name: Publish
-        run: dotnet publish server/server.csproj -c Release -o ./publish
-
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'prbf' # Replace with your actual app name
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./publish
