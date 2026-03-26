@@ -47,7 +47,7 @@ export function GenerateQR() {
     setSecurityToken(newToken);
     
     // 🌟 Attach the token to the URL as a query parameter
-  const verificationUrl = `${PUBLIC_BASE_URL}?type=${selectedEntity}&data=${inputValue}&token=${newToken}`;
+  const verificationUrl = `${PUBLIC_BASE_URL}verify?type=${selectedEntity}&data=${inputValue}&token=${newToken}`;
   
     setPreviewUrl(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(verificationUrl)}`);
   };
@@ -60,7 +60,7 @@ export function GenerateQR() {
     try {
       const authToken = await user?.getIdToken();
 
-      const response = await fetch(`${BASE_URL}api/qr/register`, {
+      const response = await fetch(`${BASE_URL}/api/qr/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -182,7 +182,7 @@ export function GenerateQR() {
             {isRegistered ? "Secure QR Code Registered!" : "QR Code Preview"}
           </h3>
           <p className="text-xs text-muted-foreground mb-4 break-all bg-muted p-2 rounded">
-            <strong>URL:</strong> {PUBLIC_BASE_URL}?type={selectedEntity}&data={inputValue}&token={securityToken}
+            <strong>URL:</strong> {PUBLIC_BASE_URL}/verify?type={selectedEntity}&data={inputValue}&token={securityToken}
           </p>
           
           <div className={`p-4 inline-block rounded-xl border shadow-sm mb-6 transition-colors duration-300 ${isRegistered ? 'bg-green-50 border-green-200' : 'bg-white'}`}>
