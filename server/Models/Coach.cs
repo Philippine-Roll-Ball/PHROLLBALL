@@ -38,6 +38,16 @@ namespace server.Models
 
         public DateTime BirthDate { get; set; }
 
+        [MaxLength(60)]
+        public string? Address {get; set;}
+
+        [MaxLength(6)]
+        public string? Sex { get; set; }
+
+        [MaxLength(15)]
+        public string? Nationality { get; set;}
+
+
         [MaxLength(30)]
         public string? EducationalAttainment { get; set; }
 

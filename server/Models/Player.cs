@@ -49,6 +49,8 @@ namespace server.Models
         [MaxLength(255)]
 
         public string? ProfileImageUrl { get; set; }
+        [MaxLength(15)]
+        public string? Nationality { get; set;}
 
         [MaxLength(30)]
         public string? Occupation { get; set; }
