@@ -2,40 +2,13 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
 import { regions, provinces, cities, barangays } from "select-philippines-address";
+import { User, Region, Province, Municipality, Barangay } from "@/types/user";
 // import { useAuth } from "@/hook/useAuth";
 // import { registerUser } from "@/services/apiService"; 
 
 export default function Register() {
 
-  interface Region {
-    id: number;
-    psgc_code: string;
-    region_name: string;
-    region_code: string;
-  }
-
-  interface Province {
-    province_code: string;
-    province_name: string;
-    psgc_code: string;
-    region_code: string;
-  }
-
-  interface Municipality {
-    city_code: string;
-    city_name: string;
-    province_code: string;
-    psgc_code: string;
-    region_desc: string;
-  }
-
-  interface Barangay {
-    brgy_code: string;
-    brgy_name: string;
-    city_code: string;
-    province_code: string;
-    region_code: string;
-  }
+  
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -48,7 +21,7 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<User>({
     firstName: "",
     middleName: "",
     lastName: "",
