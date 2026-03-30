@@ -34,15 +34,18 @@ namespace server.Models
         [NotMapped]
         public string? FullName => $"{FirstName} {MiddleName} {LastName} {Suffix}".Trim();
 
-
+        [Required]
         public DateTime BirthDate { get; set; }
 
+        [Required]
         [MaxLength(60)]
         public string? Address { get; set;}
 
+        [Required]
         [MaxLength(6)]
         public string? Sex { get; set;}
 
+        [Required]
         [MaxLength(30)]
         public string? EducationalAttainment { get; set; }
 
@@ -50,13 +53,17 @@ namespace server.Models
 
         public string? ProfileImageUrl { get; set; }
         [MaxLength(15)]
+
+        [Required]
         public string? Nationality { get; set;}
 
+        [Required]
         [MaxLength(30)]
         public string? Occupation { get; set; }
 
         public List<string?>? OtherSports { get; set; }
 
+        [Required]
         [MaxLength(10)]
         public string? Role { get; set; }
 
