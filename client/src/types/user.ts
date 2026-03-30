@@ -7,6 +7,8 @@ export interface User {
     birthDate: string;
     age: string;
     nationality: string;
+    educationalAttainment: string;
+    occupation: string;
     sex: string;
     phone: string;
     region: string;
