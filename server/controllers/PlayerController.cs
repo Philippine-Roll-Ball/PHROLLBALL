@@ -1,7 +1,9 @@
 
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using server.Data;
+using server.Models;
 namespace server;
 
 [ApiController]
@@ -12,5 +14,14 @@ public class PlayerController : ControllerBase {
     public PlayerController(AppDbContext playerContext)
     {
         _playerContext = playerContext;
+    }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] Player request)
+    {
+
+        var existing = await _playerContext.Players.FirstOrDefaultAsync(p => p.Email == request.Email )
+
+        return Ok("Registration Successful!");
     }
 }
