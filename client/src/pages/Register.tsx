@@ -28,6 +28,8 @@ export default function Register() {
     birthDate: "",
     age: "",
     nationality: "",
+    educationalAttainment: "",
+    occupation: "",
     sex: "",
     phone: "",
     region: "",
