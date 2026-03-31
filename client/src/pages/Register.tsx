@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
-import { regions, provinces, cities, barangays } from "select-philippines-address";
-import { User, Region, Province, Municipality, Barangay } from "@/types/user";
+import { User } from "@/types/user";
 import { AddressStep } from "@/components/AddressStep";
-import { usePlayer } from "@/hook/usePlayer";
+// import { usePlayer } from "@/hook/usePlayer";
 // import { useAuth } from "@/hook/useAuth";
 // import { registerUser } from "@/services/apiService"; 
 
@@ -43,17 +42,12 @@ export default function Register() {
     confirmPassword: "",
   });
 
-  useEffect(() => {
-    regions().then((response: Region[]) => {
-      setRegionList(response);
-    });
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
+ 
 
   const nextStep = () => setStep((prev) => Math.min(prev + 1, 4));
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
@@ -62,7 +56,6 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
-
 
     if (step < 4) {
       nextStep();
