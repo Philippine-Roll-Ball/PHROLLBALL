@@ -7,11 +7,6 @@ export const AddressStep = ({ formData, onChange, setFormData } : any) => {
         handleRegionChange, handleProvinceChange, handleCityChange 
     } = useAddress(setFormData);
 
-    const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value}));
-    };
-
     return (
         <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
               <h2 className="text-lg font-semibold border-b pb-2">Step 2: Contact Info</h2>
