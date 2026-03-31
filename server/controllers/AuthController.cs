@@ -25,14 +25,6 @@ namespace server.controllers
             return Ok(new { message = "Connected!" });
         }
 
-        [HttpGet("register")]
-        public async Task<IActionResult> Register([FromBody] Player request)
-        {
-
-            var existing = await _context.Players.FirstOrDefaultAsync(p => p.Email == request.Email && p.PlayerID == request.PlayerID);
-            Console.WriteLine("Connected Successfully");
-            return Ok(new {message = "Registration Successful!"});
-        }
         
     }
 
