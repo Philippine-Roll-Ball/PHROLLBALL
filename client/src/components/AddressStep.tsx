@@ -1,11 +1,16 @@
 import { useAddress } from "@/hook/useRegion";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const AddressStep = ({ formData, handleChange, setFormData } : any) => {
+export const AddressStep = ({ formData, onChange, setFormData } : any) => {
     const { 
         regionList, provinceList, cityList, barangayList, 
         handleRegionChange, handleProvinceChange, handleCityChange 
     } = useAddress(setFormData);
+
+    const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value}));
+    };
 
     return (
         <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
@@ -19,7 +24,7 @@ export const AddressStep = ({ formData, handleChange, setFormData } : any) => {
                     name="email"
                     required
                     value={formData.email}
-                    onChange={handleChange}
+                    onChange={onChange}
                     className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
                     placeholder="juandelacruz@gmail.com"
                   />
@@ -32,7 +37,7 @@ export const AddressStep = ({ formData, handleChange, setFormData } : any) => {
                     name="phone"
                     required
                     value={formData.phone}
-                    onChange={handleChange}
+                    onChange={onChange}
                     className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
                     placeholder="09123456789"
                   />
@@ -102,7 +107,7 @@ export const AddressStep = ({ formData, handleChange, setFormData } : any) => {
                     name="barangay"
                     required
                     value={formData.barangay}
-                    onChange={handleChange}
+                    onChange={onChange}
                     disabled={!formData.city}
                     className="w-full mt-1 px-3 py-2 border rounded-lg bg-background disabled:opacity-50"
                   >
