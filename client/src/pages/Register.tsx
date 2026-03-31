@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Eye, EyeOff } from "lucide-react";
 import { User } from "@/types/user";
 import { AddressStep } from "@/components/AddressStep";
 import { PersonalDetailsStep  } from "@/components/PersonalDetailsStep";
 import { RoleStep } from "@/components/RoleStep";
+import { AccountCredentialsStep } from "@/components/AccountCredentialsStep";
 // import { usePlayer } from "@/hook/usePlayer";
 // import { useAuth } from "@/hook/useAuth";
 // import { registerUser } from "@/services/apiService"; 
@@ -16,7 +16,7 @@ export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-
+  const [showPassword, setShowPassword] = useState(false);
 
   // const { registerPlayer, isPending } = usePlayer();
 
@@ -132,9 +132,7 @@ export default function Register() {
 
           {step === 3 && ( <RoleStep formData={formData} onChange={handleChange} /> )}
 
-          {step === 4 && (
-            
-          )}
+          {step === 4 && ( <AccountCredentialsStep formData={formData} onChange={handleChange} showPassword={showPassword} showConfirmPassword={showPassword} setShowPassword={setShowPassword} setShowConfirmPassword={setShowConfirmPassword} /> )}
           <div className="flex gap-4 pt-4">
             {step > 1 && (
               <Button type="button" variant="outline" className="w-full" onClick={prevStep}>
