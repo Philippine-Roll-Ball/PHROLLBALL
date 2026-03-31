@@ -4,6 +4,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { User } from "@/types/user";
 import { AddressStep } from "@/components/AddressStep";
 import { PersonalDetailsStep  } from "@/components/PersonalDetailsStep";
+import { RoleStep } from "@/components/RoleStep";
 // import { usePlayer } from "@/hook/usePlayer";
 // import { useAuth } from "@/hook/useAuth";
 // import { registerUser } from "@/services/apiService"; 
@@ -16,9 +17,6 @@ export default function Register() {
   const [error, setError] = useState<string | null>(null);
 
 
-
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // const { registerPlayer, isPending } = usePlayer();
 
@@ -128,93 +126,14 @@ export default function Register() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
 
-          {step === 1 && (
-            <PersonalDetailsStep formData={formData}  onChange={handleChange} setFormData={setFormData}/>
-          )}
-          
-          {step === 2 && (
-            <AddressStep formData={formData} setFormData={setFormData} onChange={handleChange}/>
-          )}
+          {step === 1 && ( <PersonalDetailsStep formData={formData}  onChange={handleChange} setFormData={setFormData}/> )}
 
-          {step === 3 && (
-            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="text-lg font-semibold border-b pb-2">Step 3: Membership Role</h2>
-              <div>
-                <label className="text-sm font-medium">Select Role</label>
-                <select
-                  name="role"
-                  required
-                  value={formData.role}
-                  onChange={handleChange}
-                  className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
-                >
-                  <option value="" disabled>Choose your role...</option>
-                  <option value="Player">Player</option>
-                  <option value="Coach">Coach</option>
-                  <option value="Referee">Referee</option>
-                  <option value="Official">Official</option>
-                </select>
-              </div>
-            </div>
-          )}
+          {step === 2 && ( <AddressStep formData={formData} setFormData={setFormData} onChange={handleChange}/> )}
+
+          {step === 3 && ( <RoleStep formData={formData} onChange={handleChange} /> )}
 
           {step === 4 && (
-            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="text-lg font-semibold border-b pb-2">Step 4: Account Credentials</h2>
-              <div>
-                <label className="text-sm font-medium">Password</label>
-                <div className="relative mt-1">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    required
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 pr-10 border rounded-lg bg-background"
-                    placeholder="••••••••"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-foreground transition-colors"
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Confirm Password</label>
-                <div className="relative mt-1">
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    name="confirmPassword"
-                    required
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 pr-10 border rounded-lg bg-background"
-                    placeholder="••••••••"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-foreground transition-colors"
-                    aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
-                  >
-                    {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
+            
           )}
           <div className="flex gap-4 pt-4">
             {step > 1 && (
