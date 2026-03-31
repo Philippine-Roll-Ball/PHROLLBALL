@@ -10,8 +10,6 @@ import { AccountCredentialsStep } from "@/components/AccountCredentialsStep";
 // import { registerUser } from "@/services/apiService"; 
 
 export default function Register() {
-
-  
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -88,7 +86,6 @@ export default function Register() {
     <div className="min-h-screen flex items-center justify-center bg-muted/30 py-8 px-4">
       <div className="w-full max-w-lg bg-card border border-border rounded-xl p-8 shadow-sm">
 
-        {/* Header */}
         <div className="text-center mb-2">
           <h1 className="font-display text-4xl">Be a Member</h1>
           <p className="text-md text-muted-foreground mt-2">
@@ -96,7 +93,6 @@ export default function Register() {
           </p>
         </div>
 
-        {/* Step Indicator (Progress Bar) */}
         <div className="flex justify-between items-center mb-4 px-2">
           {[1, 2, 3, 4].map((item) => (
             <div key={item} className="flex items-center">
@@ -108,7 +104,6 @@ export default function Register() {
               >
                 {item}
               </div>
-              {/* Connector Line */}
               {item < 4 && (
                 <div
                   className={`h-1 w-10 sm:w-16 mx-2 rounded transition-colors duration-300 ${step > item ? "bg-primary" : "bg-muted"
