@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
 import { regions, provinces, cities, barangays } from "select-philippines-address";
 import { User, Region, Province, Municipality, Barangay } from "@/types/user";
+import { AddressStep } from "@/components/AddressStep";
+import { usePlayer } from "@/hook/usePlayer";
 // import { useAuth } from "@/hook/useAuth";
 // import { registerUser } from "@/services/apiService"; 
 
@@ -20,6 +22,8 @@ export default function Register() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  // const { registerPlayer, isPending } = usePlayer();
 
   const [formData, setFormData] = useState<User>({
     firstName: "",
@@ -51,30 +55,6 @@ export default function Register() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const regionCode = e.target.value;
-    setFormData((prev) => ({ ...prev, region: regionCode, province: "", city: "", barangay: "" }));
-
-    provinces(regionCode).then((res: Province[]) => setProvinceList(res));
-    setCityList([]); 
-    setBarangayList([]);
-  };
-
-  const handleProvinceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const provinceCode = e.target.value;
-    setFormData((prev) => ({ ...prev, province: provinceCode, city: "", barangay: "" }));
-
-    cities(provinceCode).then((res: Municipality[]) => setCityList(res));
-    setBarangayList([]);
-  };
-
-  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const cityCode = e.target.value;
-    setFormData((prev) => ({ ...prev, city: cityCode, barangay: "" }));
-
-    barangays(cityCode).then((res: Barangay[]) => setBarangayList(res));
   };
 
 
@@ -256,115 +236,7 @@ export default function Register() {
 
           {/* STEP 2: Contact Details & Address */}
           {step === 2 && (
-            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="text-lg font-semibold border-b pb-2">Step 2: Contact Info</h2>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium">Email Address</label>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
-                    placeholder="juandelacruz@gmail.com"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium">Phone Number</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    required
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
-                    placeholder="09123456789"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 mt-2">
-                <div>
-                  <label className="text-sm font-medium">Region</label>
-                  <select
-                    name="region"
-                    required
-                    value={formData.region}
-                    onChange={handleRegionChange}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
-                  >
-                    <option value="" disabled>Select Region</option>
-                    {regionList.map((region) => (
-                      <option key={region.region_code} value={region.region_code}>
-                        {region.region_name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium">Province</label>
-                  <select
-                    name="province"
-                    required
-                    value={formData.province}
-                    onChange={handleProvinceChange}
-                    disabled={!formData.region}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background disabled:opacity-50"
-                  >
-                    <option value="" disabled>Select Province</option>
-                    {provinceList.map((prov) => (
-                      <option key={prov.province_code} value={prov.province_code}>
-                        {prov.province_name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium">City/Municipality</label>
-                  <select
-                    name="city"
-                    required
-                    value={formData.city}
-                    onChange={handleCityChange}
-                    disabled={!formData.province}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background disabled:opacity-50"
-                  >
-                    <option value="" disabled>Select City</option>
-                    {cityList.map((city) => (
-                      <option key={city.city_code} value={city.city_code}>
-                        {city.city_name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium">Barangay</label>
-                  <select
-                    name="barangay"
-                    required
-                    value={formData.barangay}
-                    onChange={handleChange}
-                    disabled={!formData.city}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background disabled:opacity-50"
-                  >
-                    <option value="" disabled>Select Barangay</option>
-                    {barangayList.map((brgy) => (
-                      <option key={brgy.brgy_code} value={brgy.brgy_code}>
-                        {brgy.brgy_name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-            </div>
+            <AddressStep formData={formData} setFormData={setFormData} onChange={handleChange}/>
           )}
 
           {step === 3 && (
