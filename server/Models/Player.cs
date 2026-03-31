@@ -37,7 +37,11 @@ namespace server.Models
 
         public DateTime BirthDate { get; set; }
 
+        [MaxLength(60)]
+        public string? Address { get; set;}
 
+        [MaxLength(6)]
+        public string? Sex { get; set;}
 
         [MaxLength(30)]
         public string? EducationalAttainment { get; set; }
@@ -54,11 +58,14 @@ namespace server.Models
         [MaxLength(10)]
         public string? Role { get; set; }
 
+
         public DateTime DateRegistered { get; set; }
 
         public int? TeamID { get; set; }
 
         [ForeignKey(nameof(TeamID))]
         public Team? TeamAssigned { get; set; }
+
+        
     }
 }
