@@ -17,6 +17,7 @@ export default function Register() {
   const [error, setError] = useState<string | null>(null);
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // const { registerPlayer, isPending } = usePlayer();
 
@@ -132,7 +133,7 @@ export default function Register() {
 
           {step === 3 && ( <RoleStep formData={formData} onChange={handleChange} /> )}
 
-          {step === 4 && ( <AccountCredentialsStep formData={formData} onChange={handleChange} showPassword={showPassword} showConfirmPassword={showPassword} setShowPassword={setShowPassword} setShowConfirmPassword={setShowConfirmPassword} /> )}
+          {step === 4 && ( <AccountCredentialsStep formData={formData} onChange={handleChange} showPassword={showPassword} showConfirmPassword={showConfirmPassword} setShowPassword={setShowPassword} setShowConfirmPassword={setShowConfirmPassword} /> )}
           <div className="flex gap-4 pt-4">
             {step > 1 && (
               <Button type="button" variant="outline" className="w-full" onClick={prevStep}>
