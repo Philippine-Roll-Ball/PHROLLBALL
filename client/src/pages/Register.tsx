@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
 import { User } from "@/types/user";
 import { AddressStep } from "@/components/AddressStep";
+import { PersonalDetailsStep  } from "@/components/PersonalDetailsStep";
 // import { usePlayer } from "@/hook/usePlayer";
 // import { useAuth } from "@/hook/useAuth";
 // import { registerUser } from "@/services/apiService"; 
@@ -127,104 +128,10 @@ export default function Register() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
 
-          {/* STEP 1: Personal Info */}
           {step === 1 && (
-            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="text-lg font-semibold border-b pb-2">Step 1: Personal Details</h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium">First Name</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    required
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
-                    placeholder="Juan"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Middle Name</label>
-                  <input
-                    type="text"
-                    name="middleName"
-                    required
-                    value={formData.middleName}
-                    onChange={handleChange}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
-                    placeholder="Santos"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium">Last Name</label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    required
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
-                    placeholder="Dela Cruz"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Birthdate</label>
-                  <input
-                    type="date"
-                    name="birthDate"
-                    required
-                    value={formData.birthDate}
-                    onChange={handleChange}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium">Age</label>
-                  <input
-                    type="number"
-                    name="age"
-                    required
-                    value={formData.age}
-                    onChange={handleChange}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
-                    placeholder="22"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium">Nationality</label>
-                  <input
-                    type="text"
-                    name="nationality"
-                    required
-                    value={formData.nationality}
-                    onChange={handleChange}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
-                    placeholder="Filipino"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Sex</label>
-                  <select
-                    name="sex"
-                    required
-                    value={formData.sex}
-                    onChange={handleChange}
-                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
-                  >
-                    <option value="" disabled>Select Sex</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+            <PersonalDetailsStep formData={formData}  onChange={handleChange} setFormData={setFormData}/>
           )}
-
-          {/* STEP 2: Contact Details & Address */}
+          
           {step === 2 && (
             <AddressStep formData={formData} setFormData={setFormData} onChange={handleChange}/>
           )}
