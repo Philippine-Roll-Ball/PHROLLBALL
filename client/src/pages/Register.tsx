@@ -15,10 +15,7 @@ export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [regionList, setRegionList] = useState<Region[]>([]);
-  const [provinceList, setProvinceList] = useState<Province[]>([]);
-  const [cityList, setCityList] = useState<Municipality[]>([]);
-  const [barangayList, setBarangayList] = useState<Barangay[]>([]);
+
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
