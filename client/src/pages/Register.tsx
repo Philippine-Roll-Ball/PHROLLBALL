@@ -5,17 +5,19 @@ import { AddressStep } from "@/components/AddressStep";
 import { PersonalDetailsStep  } from "@/components/PersonalDetailsStep";
 import { RoleStep } from "@/components/RoleStep";
 import { AccountCredentialsStep } from "@/components/AccountCredentialsStep";
+import { usePlayer } from "@/hook/usePlayer";;
 // import { usePlayer } from "@/hook/usePlayer";
 // import { useAuth } from "@/hook/useAuth";
 // import { registerUser } from "@/services/apiService"; 
 
 export default function Register() {
   const [step, setStep] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  
   const [error, setError] = useState<string | null>(null);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { registerPlayerAsync, isRegistering } = usePlayer();
 
   // const { registerPlayer, isPending } = usePlayer();
 
@@ -64,22 +66,23 @@ export default function Register() {
       setError("Passwords do not match!");
       return;
     }
-
-    setIsLoading(true);
-
     try {
       // Replace with actual API Call
       // const userData = await registerUser(formData);
+
+      console.log("Form Data:", formData);
+      await registerPlayerAsync(formData as User);
       console.log("Registered successfully!", formData);
+
+      //NEED TO UNCOMMENT THIS IF AUTHENTICATION IS IMPLEMENTED
+      //window.location.href("/home")
 
       // Redirect after success
       // window.location.href = "/admin";
     } catch (err) {
       console.error("Registration failed", err);
       setError("An error occurred during registration. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+    } 
   };
 
   return (
@@ -121,13 +124,9 @@ export default function Register() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-
           {step === 1 && ( <PersonalDetailsStep formData={formData}  onChange={handleChange} setFormData={setFormData}/> )}
-
           {step === 2 && ( <AddressStep formData={formData} setFormData={setFormData} onChange={handleChange}/> )}
-
           {step === 3 && ( <RoleStep formData={formData} onChange={handleChange} /> )}
-
           {step === 4 && ( <AccountCredentialsStep formData={formData} onChange={handleChange} showPassword={showPassword} showConfirmPassword={showConfirmPassword} setShowPassword={setShowPassword} setShowConfirmPassword={setShowConfirmPassword} /> )}
           <div className="flex gap-4 pt-4">
             {step > 1 && (
@@ -135,8 +134,8 @@ export default function Register() {
                 Back
               </Button>
             )}
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {step < 4 ? "Next Step" : (isLoading ? "Submitting..." : "Complete Registration")}
+            <Button type="submit" className="w-full" disabled={isRegistering}>
+              {step < 4 ? "Next Step" : (isRegistering ? "Submitting..." : "Complete Registration")}
             </Button>
           </div>
         </form>

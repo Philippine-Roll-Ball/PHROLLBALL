@@ -31,6 +31,7 @@ export const usePlayer = () => {
         }
     });
     return {
+        registerPlayerAsync: registerQuery.mutateAsync,
         registerPlayer: registerQuery.mutate,
         isRegistering: registerQuery.isPending,
         error: registerQuery.error,
