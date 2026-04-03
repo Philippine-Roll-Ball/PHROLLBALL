@@ -31,7 +31,7 @@ export default function Register() {
     educationalAttainment: "",
     occupation: "",
     sex: "",
-    phone: "",
+    ContactNumber: "",
     region: "",
     province: "",
     city: "",
@@ -40,6 +40,7 @@ export default function Register() {
     email: "",
     password: "",
     confirmPassword: "",
+    Address: "",
   });
 
 
@@ -68,11 +69,17 @@ export default function Register() {
     }
     try {
       // Replace with actual API Call
-      // const userData = await registerUser(formData);
+      const {
+        region, province, city, barangay, ...rest
+      } = formData;
 
-      console.log("Form Data:", formData);
-      await registerPlayerAsync(formData as User);
-      console.log("Registered successfully!", formData);
+      const fullAddress = [barangay, city, province, region].filter(Boolean).join(", ");  
+      const payload = {...rest, Address: fullAddress };
+      
+     
+      console.log("Form Data:", payload);
+      await registerPlayerAsync(payload as User);
+      console.log("Registered successfully!", payload);
 
       //NEED TO UNCOMMENT THIS IF AUTHENTICATION IS IMPLEMENTED
       //window.location.href("/home")

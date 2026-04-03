@@ -10,15 +10,16 @@ export interface User {
     educationalAttainment: string;
     occupation: string;
     sex: string;
-    phone: string;
-    region: string;
-    province: string;
-    city: string;
-    barangay: string;
+    ContactNumber: string;
+    region: Region["region_name"];
+    province: Province["province_name"];
+    city: Municipality["city_name"];
+    barangay: Barangay["brgy_name"];
     role: string;
     email: string;
     password: string;
     confirmPassword: string;
+    Address: string;
     
 }
 
