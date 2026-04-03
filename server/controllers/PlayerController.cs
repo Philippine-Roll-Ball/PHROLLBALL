@@ -19,16 +19,24 @@ public class PlayerController : ControllerBase {
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] Player request)
     {
+        Console.WriteLine("=====================API Endpoint Reached===============================");
+        try
+        {
+            var existing = await _playerContext.Players.FirstOrDefaultAsync(p => p.Email == request.Email &&
+           p.FirstName == request.FirstName &&
+           p.LastName == request.LastName);
+            if (existing != null) return BadRequest("Player Already Exists");
 
-        var existing = await _playerContext.Players.FirstOrDefaultAsync(p => p.Email == request.Email &&
-            p.FirstName == request.FirstName && 
-            p.LastName == request.LastName);
-        if (existing != null) return BadRequest("Player Already Exists");
+            await _playerContext.Players.AddAsync(request);
+            await _playerContext.SaveChangesAsync();
 
-        await _playerContext.Players.AddAsync(request);
-        await _playerContext.SaveChangesAsync();
-
-
+        } catch(Exception ex)
+        {
+            return StatusCode(500, $"An error occurred while registering the player: {ex.Message}");
+        }
         return Ok("Registration Successful!");
+
+
+
     }
 }
