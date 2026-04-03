@@ -100,6 +100,24 @@ interface Props {
                     <option value="Female">Female</option>
                   </select>
                 </div>
+                <div>
+                  <label className="text-sm font-medium">Educational Attainment</label>
+                  <select
+                    name="educationalAttainment"
+                    required
+                    value={formData.educationalAttainment}
+                    onChange={onChange}
+                    className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
+                  >
+                    <option value="" disabled>Select</option>
+                    <option value="College Graduate">College Graduate</option>
+                    <option value="Undergraduate">Undergraduate</option>
+                    <option value="Senior High-School">Senior High-School</option>
+                    <option value="Junior High-School">Junior High-School</option>
+                    <option value="Elementary">Elementary</option>
+                    <option value="Not Applicable">Not Applicable</option>
+                  </select>
+                </div>
               </div>
             </div>
     );
