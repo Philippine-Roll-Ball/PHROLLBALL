@@ -43,10 +43,15 @@ export const useAddress = (setFormData: any) => {
         setFormData((prev: any) => ({...prev, city: name, barangay: ""}));
         barangays(code).then((res) => setBarangayList(res));
     };
+    const handleBarangayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const name = e.target.value;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setFormData((prev: any) => ({...prev, barangay: name}));
+    }
 
     return {
         regionList, provinceList, cityList, barangayList,
-        handleRegionChange, handleProvinceChange, handleCityChange
+        handleRegionChange, handleProvinceChange, handleCityChange, handleBarangayChange
     }
     
 
