@@ -14,9 +14,11 @@ export const useAddress = (setFormData: any) => {
     }, []);
 
     const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const code = e.target.value;
+        const name = e.target.value;
+        const selectedOption = e.target.options[e.target.selectedIndex];
+        const code = selectedOption.dataset.code || "";
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setFormData((prev: any) => ({...prev, region: code, province: "", city: "", barangay: ""}));
+        setFormData((prev: any) => ({...prev, region: name, province: "", city: "", barangay: ""}));
         provinces(code).then((res) => setProvinceList(res));
         setCityList([]);
         setBarangayList([]);
@@ -24,9 +26,11 @@ export const useAddress = (setFormData: any) => {
     };
 
     const handleProvinceChange =(e: React.ChangeEvent<HTMLSelectElement>) => {
-        const code = e.target.value;
+        const name = e.target.value;
+        const selectedOption = e.target.options[e.target.selectedIndex];
+        const code = selectedOption.dataset.code || "";
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setFormData((prev: any) => ({...prev, province: code, city: "", barangay: ""}));
+        setFormData((prev: any) => ({...prev, province: name, city: "", barangay: ""}));
         cities(code).then((res) => setCityList(res));
         setBarangayList([]);
     };
