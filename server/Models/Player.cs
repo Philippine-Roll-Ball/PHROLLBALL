@@ -38,7 +38,7 @@ namespace server.Models
         public DateTime BirthDate { get; set; }
 
         [Required]
-        [MaxLength(60)]
+        [MaxLength(100)]
         public string? Address { get; set;}
 
         [Required]
@@ -61,14 +61,14 @@ namespace server.Models
         [MaxLength(30)]
         public string? Occupation { get; set; }
 
-        public List<string?>? OtherSports { get; set; }
+        public List<string?>? OtherSports { get; set; } = new List<string?>();
 
         [Required]
         [MaxLength(10)]
         public string? Role { get; set; }
 
 
-        public DateTime DateRegistered { get; set; }
+        public DateTime DateRegistered { get; set; } = DateTime.UtcNow;
 
         public int? TeamID { get; set; }
 

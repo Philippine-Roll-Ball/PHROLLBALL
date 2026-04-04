@@ -4,7 +4,7 @@ import { useAddress } from "@/hook/useRegion";
 export const AddressStep = ({ formData, onChange, setFormData } : any) => {
     const { 
         regionList, provinceList, cityList, barangayList, 
-        handleRegionChange, handleProvinceChange, handleCityChange 
+        handleRegionChange, handleProvinceChange, handleCityChange, handleBarangayChange
     } = useAddress(setFormData);
 
     return (
@@ -28,10 +28,10 @@ export const AddressStep = ({ formData, onChange, setFormData } : any) => {
                 <div>
                   <label className="text-sm font-medium">Phone Number</label>
                   <input
-                    type="tel"
-                    name="phone"
+                    type="text"
+                    name="ContactNumber"
                     required
-                    value={formData.phone}
+                    value={formData.ContactNumber}
                     onChange={onChange}
                     className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
                     placeholder="09123456789"
@@ -51,7 +51,7 @@ export const AddressStep = ({ formData, onChange, setFormData } : any) => {
                   >
                     <option value="" disabled>Select Region</option>
                     {regionList.map((region) => (
-                      <option key={region.region_code} value={region.region_code}>
+                      <option key={region.region_code} value={region.region_name} data-code={region.region_code}>
                         {region.region_name}
                       </option>
                     ))}
@@ -70,7 +70,7 @@ export const AddressStep = ({ formData, onChange, setFormData } : any) => {
                   >
                     <option value="" disabled>Select Province</option>
                     {provinceList.map((prov) => (
-                      <option key={prov.province_code} value={prov.province_code}>
+                      <option key={prov.province_code} value={prov.province_name} data-code={prov.province_code}>
                         {prov.province_name}
                       </option>
                     ))}
@@ -89,7 +89,7 @@ export const AddressStep = ({ formData, onChange, setFormData } : any) => {
                   >
                     <option value="" disabled>Select City</option>
                     {cityList.map((city) => (
-                      <option key={city.city_code} value={city.city_code}>
+                      <option key={city.city_code} value={city.city_name} data-code={city.city_code}>
                         {city.city_name}
                       </option>
                     ))}
@@ -102,13 +102,13 @@ export const AddressStep = ({ formData, onChange, setFormData } : any) => {
                     name="barangay"
                     required
                     value={formData.barangay}
-                    onChange={onChange}
+                    onChange={handleBarangayChange}
                     disabled={!formData.city}
                     className="w-full mt-1 px-3 py-2 border rounded-lg bg-background disabled:opacity-50"
                   >
                     <option value="" disabled>Select Barangay</option>
                     {barangayList.map((brgy) => (
-                      <option key={brgy.brgy_code} value={brgy.brgy_code}>
+                      <option key={brgy.brgy_code} value={brgy.brgy_name} data-code={brgy.brgy_code}>
                         {brgy.brgy_name}
                       </option>
                     ))}
