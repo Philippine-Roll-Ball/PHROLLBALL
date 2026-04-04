@@ -16,17 +16,17 @@ public class CoachController : ControllerBase {
         _coachContext = coachContext;
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] Coach request)
-    {
+    //[HttpPost("register")]
+    //public async Task<IActionResult> Register([FromBody] Coach request)
+    //{
 
-        var existing = await _coachContext.Players.FirstOrDefaultAsync(p => p.Email == request.Email &&
-            p.FirstName == request.FirstName && 
-            p.LastName == request.LastName);
-        if (existing != null) return BadRequest("Player Already Exists");
+    //    var existing = await _coachContext.Players.FirstOrDefaultAsync(p => p.Email == request.Email &&
+    //        p.FirstName == request.FirstName && 
+    //        p.LastName == request.LastName);
+    //    if (existing != null) return BadRequest("Player Already Exists");
 
-        await _coachContext.Coaches.AddAsync(request);
-        await _coachContext.SaveChangesAsync();
-        return Ok("Registration Successful!");
-    }
+    //    await _coachContext.Coaches.AddAsync(request);
+    //    await _coachContext.SaveChangesAsync();
+    //    return Ok("Registration Successful!");
+    //}
 }
