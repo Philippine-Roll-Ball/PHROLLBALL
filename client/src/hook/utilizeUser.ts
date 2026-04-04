@@ -12,7 +12,7 @@
 // };
 
  
-import { registerPlayer } from "@/services/playerService";
+import { registerPlayer } from "@/services/userService";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { User } from "@/types/user";
 

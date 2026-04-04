@@ -7,7 +7,7 @@ import { User } from "@/types/user";
 // write the api call either get, post, path, or delete
 
 export const registerPlayer = async (user: User) => {
-    const { data } = await apiClient.post("api/player/register", user);
+    const { data } = await apiClient.post("api/user/register", user);
     return data;
 }
 

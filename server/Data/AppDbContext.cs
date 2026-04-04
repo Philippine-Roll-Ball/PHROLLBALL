@@ -1,33 +1,41 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using server.Models;
 
-
-
 namespace server.Data
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
 
+        // 1. CONSOLIDATED DBSETS
+        // Replaced Admins, Players, and Coaches with a single Users table.
+        public DbSet<User> Users { get; set; }
+
         public DbSet<Admin> Admins { get; set; }
-        public DbSet<Player> Players { get; set; }
+
+        // 2. UNCHANGED DBSETS
         public DbSet<Match> Matches { get; set; }
-        public DbSet<Coach> Coaches { get; set; }
         public DbSet<Team> Teams { get; set; }
-        public DbSet<Tournament> Tournaments { get; set;  }
+        public DbSet<Tournament> Tournaments { get; set; }
         public DbSet<TournamentTeam> TournamentTeams { get; set; }
-
         public DbSet<MatchTeam> MatchTeams { get; set; }
-
         public DbSet<QrCode> Qrcodes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // TournamentTeam Composite PK
+            modelBuilder.Entity<Admin>()
+                .HasIndex(a => a.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasDiscriminator(u => u.Role)
+                .HasValue<Player>("Player")
+                .HasValue<Coach>("Coach");
+
             modelBuilder.Entity<TournamentTeam>()
                 .HasKey(tt => new { tt.TournamentID, tt.TeamID });
 
@@ -42,7 +50,6 @@ namespace server.Data
                 .WithMany(tt => tt.TournamentTeams)
                 .HasForeignKey(tt => tt.TournamentID)
                 .OnDelete(DeleteBehavior.Cascade);
-
 
             modelBuilder.Entity<MatchTeam>()
                 .HasKey(mt => new { mt.MatchID, mt.TeamID });
@@ -59,35 +66,27 @@ namespace server.Data
                 .HasForeignKey(mt => mt.MatchID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+
             modelBuilder.Entity<Coach>()
-                .HasOne(c => c.Team)
-                .WithOne(t => t.CoachAssigned)
-                .HasForeignKey<Coach>(c => c.TeamAssigned)
-                .OnDelete(DeleteBehavior.Cascade);
+              .HasOne(c => c.TeamAssigned)
+              .WithOne(t => t.CoachAssigned)
+              .HasForeignKey<Coach>(c => c.TeamID)
+              .OnDelete(DeleteBehavior.ClientSetNull);
 
             modelBuilder.Entity<Player>()
                 .HasOne(p => p.TeamAssigned)
                 .WithMany(t => t.Players)
                 .HasForeignKey(p => p.TeamID)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            modelBuilder.Entity<Coach>()
-                .Property(c => c.OtherSports)
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.OtherSports)
                 .HasConversion(
-                v => string.Join(',', v ?? new List<string?>()),
+                    v => string.Join(',', v ?? new List<string?>()),
                     v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                           .Select(s => (string?)s).ToList()
+                          .Select(s => (string?)s).ToList()
                 );
-
-            modelBuilder.Entity<Player>()
-                .Property(p => p.OtherSports)
-                .HasConversion(
-                    v => string.Join('v', v ?? new List<string?>()),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(s => (string?)s).ToList()
-                );
-
         }
-
     }
 }
