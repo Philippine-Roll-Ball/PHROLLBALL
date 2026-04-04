@@ -12,8 +12,8 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260320153550_AddQrCodes")]
-    partial class AddQrCodes
+    [Migration("20260404084930_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,84 +50,10 @@ namespace server.Migrations
 
                     b.HasKey("AdminID");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Admins");
-                });
-
-            modelBuilder.Entity("server.Models.Coach", b =>
-                {
-                    b.Property<int>("CoachID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CoachID"));
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ContactNumber")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<DateTime>("DateRegistered")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EducationalAttainment")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("MiddleName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Occupation")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("OtherSports")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ProfileImageUrl")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Role")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Suffix")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.Property<int?>("TeamAssigned")
-                        .HasColumnType("int");
-
-                    b.HasKey("CoachID");
-
-                    b.HasIndex("TeamAssigned")
-                        .IsUnique()
-                        .HasFilter("[TeamAssigned] IS NOT NULL");
-
-                    b.ToTable("Coaches");
                 });
 
             modelBuilder.Entity("server.Models.Match", b =>
@@ -166,78 +92,6 @@ namespace server.Migrations
                     b.HasIndex("TeamID");
 
                     b.ToTable("MatchTeams");
-                });
-
-            modelBuilder.Entity("server.Models.Player", b =>
-                {
-                    b.Property<int?>("PlayerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("PlayerID"));
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ContactNumber")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<DateTime>("DateRegistered")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EducationalAttainment")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("MiddleName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Occupation")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("OtherSports")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfileImageUrl")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Role")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Suffix")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.Property<int?>("TeamID")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlayerID");
-
-                    b.HasIndex("TeamID");
-
-                    b.ToTable("Players");
                 });
 
             modelBuilder.Entity("server.Models.QrCode", b =>
@@ -354,14 +208,121 @@ namespace server.Migrations
                     b.ToTable("TournamentTeams");
                 });
 
+            modelBuilder.Entity("server.Models.User", b =>
+                {
+                    b.Property<int?>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("UserID"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ContactNumber")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<DateTime>("DateRegistered")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EducationalAttainment")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("MiddleName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Nationality")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Occupation")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("OtherSports")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileImageUrl")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Sex")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("Suffix")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<int?>("TeamID")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("Role").HasValue("User");
+
+                    b.UseTphMappingStrategy();
+                });
+
             modelBuilder.Entity("server.Models.Coach", b =>
                 {
-                    b.HasOne("server.Models.Team", "Team")
-                        .WithOne("CoachAssigned")
-                        .HasForeignKey("server.Models.Coach", "TeamAssigned")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasBaseType("server.Models.User");
 
-                    b.Navigation("Team");
+                    b.HasIndex("TeamID")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Users_TeamID1")
+                        .HasFilter("[TeamID] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue("Coach");
+                });
+
+            modelBuilder.Entity("server.Models.Player", b =>
+                {
+                    b.HasBaseType("server.Models.User");
+
+                    b.HasIndex("TeamID");
+
+                    b.HasDiscriminator().HasValue("Player");
                 });
 
             modelBuilder.Entity("server.Models.MatchTeam", b =>
@@ -383,16 +344,6 @@ namespace server.Migrations
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("server.Models.Player", b =>
-                {
-                    b.HasOne("server.Models.Team", "TeamAssigned")
-                        .WithMany("Players")
-                        .HasForeignKey("TeamID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("TeamAssigned");
-                });
-
             modelBuilder.Entity("server.Models.TournamentTeam", b =>
                 {
                     b.HasOne("server.Models.Team", "Team")
@@ -410,6 +361,25 @@ namespace server.Migrations
                     b.Navigation("Team");
 
                     b.Navigation("Tournament");
+                });
+
+            modelBuilder.Entity("server.Models.Coach", b =>
+                {
+                    b.HasOne("server.Models.Team", "TeamAssigned")
+                        .WithOne("CoachAssigned")
+                        .HasForeignKey("server.Models.Coach", "TeamID")
+                        .HasConstraintName("FK_Users_Teams_TeamID1");
+
+                    b.Navigation("TeamAssigned");
+                });
+
+            modelBuilder.Entity("server.Models.Player", b =>
+                {
+                    b.HasOne("server.Models.Team", "TeamAssigned")
+                        .WithMany("Players")
+                        .HasForeignKey("TeamID");
+
+                    b.Navigation("TeamAssigned");
                 });
 
             modelBuilder.Entity("server.Models.Match", b =>

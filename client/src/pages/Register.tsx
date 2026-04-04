@@ -5,7 +5,7 @@ import { AddressStep } from "@/components/AddressStep";
 import { PersonalDetailsStep  } from "@/components/PersonalDetailsStep";
 import { RoleStep } from "@/components/RoleStep";
 import { AccountCredentialsStep } from "@/components/AccountCredentialsStep";
-import { usePlayer } from "@/hook/usePlayer";;
+import { usePlayer } from "@/hook/utilizeUser";;
 // import { usePlayer } from "@/hook/usePlayer";
 // import { useAuth } from "@/hook/useAuth";
 // import { registerUser } from "@/services/apiService"; 

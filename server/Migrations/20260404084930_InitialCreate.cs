@@ -41,6 +41,20 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Qrcodes",
+                columns: table => new
+                {
+                    SecurityToken = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EntityType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Data = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedByEmail = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Qrcodes", x => x.SecurityToken);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Teams",
                 columns: table => new
                 {
@@ -69,44 +83,12 @@ namespace server.Migrations
                     TournamentName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Duration = table.Column<int>(type: "int", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TournamentType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tournaments", x => x.TournamentID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Coaches",
-                columns: table => new
-                {
-                    CoachID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ContactNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    MiddleName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Suffix = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EducationalAttainment = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    ProfileImageUrl = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Occupation = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    OtherSports = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Role = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    DateRegistered = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TeamAssigned = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Coaches", x => x.CoachID);
-                    table.ForeignKey(
-                        name: "FK_Coaches_Teams_TeamAssigned",
-                        column: x => x.TeamAssigned,
-                        principalTable: "Teams",
-                        principalColumn: "TeamID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -135,35 +117,43 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Players",
+                name: "Users",
                 columns: table => new
                 {
-                    PlayerID = table.Column<int>(type: "int", nullable: false)
+                    UserID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ContactNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Suffix = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EducationalAttainment = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Sex = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
+                    EducationalAttainment = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     ProfileImageUrl = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Occupation = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Nationality = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Occupation = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     OtherSports = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Role = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     DateRegistered = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TeamID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Players", x => x.PlayerID);
+                    table.PrimaryKey("PK_Users", x => x.UserID);
                     table.ForeignKey(
-                        name: "FK_Players_Teams_TeamID",
+                        name: "FK_Users_Teams_TeamID",
                         column: x => x.TeamID,
                         principalTable: "Teams",
-                        principalColumn: "TeamID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TeamID");
+                    table.ForeignKey(
+                        name: "FK_Users_Teams_TeamID1",
+                        column: x => x.TeamID,
+                        principalTable: "Teams",
+                        principalColumn: "TeamID");
                 });
 
             migrationBuilder.CreateTable(
@@ -192,11 +182,10 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coaches_TeamAssigned",
-                table: "Coaches",
-                column: "TeamAssigned",
-                unique: true,
-                filter: "[TeamAssigned] IS NOT NULL");
+                name: "IX_Admins_Email",
+                table: "Admins",
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_MatchTeams_TeamID",
@@ -204,14 +193,21 @@ namespace server.Migrations
                 column: "TeamID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Players_TeamID",
-                table: "Players",
-                column: "TeamID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TournamentTeams_TeamID",
                 table: "TournamentTeams",
                 column: "TeamID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_TeamID",
+                table: "Users",
+                column: "TeamID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_TeamID1",
+                table: "Users",
+                column: "TeamID",
+                unique: true,
+                filter: "[TeamID] IS NOT NULL");
         }
 
         /// <inheritdoc />
@@ -221,25 +217,25 @@ namespace server.Migrations
                 name: "Admins");
 
             migrationBuilder.DropTable(
-                name: "Coaches");
-
-            migrationBuilder.DropTable(
                 name: "MatchTeams");
 
             migrationBuilder.DropTable(
-                name: "Players");
+                name: "Qrcodes");
 
             migrationBuilder.DropTable(
                 name: "TournamentTeams");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Matches");
 
             migrationBuilder.DropTable(
-                name: "Teams");
+                name: "Tournaments");
 
             migrationBuilder.DropTable(
-                name: "Tournaments");
+                name: "Teams");
         }
     }
 }
