@@ -1,66 +1,66 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { onAuthStateChanged, signOut as firebaseSignOut, User as FirebaseUser } from "firebase/auth";
+import { createContext, useContext, useState, ReactNode } from "react";
+import { signOut as firebaseSignOut } from "firebase/auth";
 import { auth } from "@/config/firebase";
 
-// 1. Define the shape of our global auth state
-type AuthContextType = {
-  user: FirebaseUser | null;
+
+export type AuthContextType = {
+  isAuthenticated: boolean;
   role: string | null;
   loading: boolean;
+  setAuthSession: (token: string, userRole: string) => void;
   signOut: () => Promise<void>;
 };
-
-// 2. Create the actual Context
 const AuthContext = createContext<AuthContextType>({
-  user: null,
+  isAuthenticated: false,
   role: null,
-  loading: true,
+  loading: false,
+  setAuthSession: () => {},
   signOut: async () => {},
 });
 
-// 3. Create the Provider Component (The "Master Brain")
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<FirebaseUser | null>(null);
-  const [role, setRole] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        try {
-          const tokenResult = await currentUser.getIdTokenResult();
-          setRole(tokenResult.claims.role as string || null);
-        } catch (error) {
-          console.error("Error fetching user role:", error);
-          setRole(null);
-        }
-      } else {
-        setUser(null);
-        setRole(null);
-      }
-      setLoading(false);
-    });
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return !!localStorage.getItem("jwtToken");
+  });
 
-    return () => unsubscribe();
-  }, []);
+  const [role, setRole] = useState<string | null>(() => {
+    return localStorage.getItem("userRole");
+  });
 
+
+  const [loading] = useState(false);
+
+
+  const setAuthSession = (token: string, userRole: string) => {
+    setIsAuthenticated(true);
+    setRole(userRole);
+  };
+  
   const signOut = async () => {
     try {
-      await firebaseSignOut(auth);
+
+      localStorage.removeItem("jwtToken");
+      localStorage.removeItem("userRole");
+  
+      setIsAuthenticated(false);
+      setRole(null);
+      
+      await firebaseSignOut(auth); 
     } catch (error) {
       console.error("Error signing out:", error);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ user, role, loading, signOut }}>
+    <AuthContext.Provider value={{ isAuthenticated, role, loading, setAuthSession, signOut }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-// 4. Export the hook so your components can still use `const { user } = useAuth();`
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);
 }

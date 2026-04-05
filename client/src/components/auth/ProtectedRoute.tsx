@@ -7,7 +7,7 @@ type ProtectedRouteProps = {
 };
 
 export default function ProtectedRoute({ allowedRoles, children }: ProtectedRouteProps) {
-    const {user, role, loading } = useAuth();
+    const {isAuthenticated, role, loading } = useAuth();
 
     if(loading) {
 
@@ -19,7 +19,7 @@ export default function ProtectedRoute({ allowedRoles, children }: ProtectedRout
 
     }
 
-    if (!user) { 
+    if (!isAuthenticated) { 
         return <Navigate to="/login" replace />;
 
     }

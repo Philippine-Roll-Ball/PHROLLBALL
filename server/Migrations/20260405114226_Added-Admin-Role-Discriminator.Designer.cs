@@ -12,8 +12,8 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260404084930_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260405114226_Added-Admin-Role-Discriminator")]
+    partial class AddedAdminRoleDiscriminator
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,37 +24,6 @@ namespace server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("server.Models.Admin", b =>
-                {
-                    b.Property<int>("AdminID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminID"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("AdminID");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("server.Models.Match", b =>
                 {
@@ -210,11 +179,9 @@ namespace server.Migrations
 
             modelBuilder.Entity("server.Models.User", b =>
                 {
-                    b.Property<int?>("UserID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("UserID"));
+                    b.Property<string>("UserID")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -270,10 +237,6 @@ namespace server.Migrations
                     b.Property<string>("OtherSports")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ProfileImageUrl")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -302,6 +265,18 @@ namespace server.Migrations
                     b.HasDiscriminator<string>("Role").HasValue("User");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("server.Models.Admin", b =>
+                {
+                    b.HasBaseType("server.Models.User");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("TeamID");
+
+                    b.HasDiscriminator().HasValue("Admin");
                 });
 
             modelBuilder.Entity("server.Models.Coach", b =>
@@ -361,6 +336,15 @@ namespace server.Migrations
                     b.Navigation("Team");
 
                     b.Navigation("Tournament");
+                });
+
+            modelBuilder.Entity("server.Models.Admin", b =>
+                {
+                    b.HasOne("server.Models.Team", "TeamAssigned")
+                        .WithMany()
+                        .HasForeignKey("TeamID");
+
+                    b.Navigation("TeamAssigned");
                 });
 
             modelBuilder.Entity("server.Models.Coach", b =>

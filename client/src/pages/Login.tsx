@@ -2,65 +2,60 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {  useNavigate } from "react-router-dom";
 import { useAuth } from "@/hook/useAuth";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "@/config/firebase";
+import { useLogin } from "@/hook/utilizeUser";
 
 export default function Login() {
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { user } = useAuth();
+  const { setAuthSession } = useAuth();
   const navigate = useNavigate();
 
+  const { loginUser, loginGoogle, loading, error} = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   // Kung naka-login na, diretso admin
 
   // 2. Handle Email/Password Login via Firebase
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError(null);
-
-    try {
       // Firebase checks the password instead of your custom API
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log("Logged in successfully!", userCredential.user);
-      
-      // Redirect to admin panel upon success
-      navigate("/admin");
-    } catch (err) {
-      console.error("Login failed", err);
-      // Clean up the Firebase error message for the user
-      setError(err.message.replace("Firebase: ", "")); 
-    } finally {
-      setIsLoading(false);
-    }
+      const data = await loginUser(email, password);
+
+      if(data && data.customToken) {
+        setAuthSession(data.customToken, data.userRole);
+        if(data.userRole === "Admin") {
+          navigate("/admin");
+        } else {
+          navigate("/login");
+        }
+      }
+      console.log("Login successful!");
+    
+    
   };
 
   // Handle Google Login via Firebase
   const handleGoogleLogin = async () => {
-    setIsLoading(true);
-    setError(null);
 
-    try {
-      const userCredential = await signInWithPopup(auth, googleProvider);
-      console.log("Google login successful!", userCredential.user);
-      navigate("/admin");
-    } catch (err) {
-      console.error("Google login failed", err);
-      
-      if (err.code === 'auth/popup-closed-by-user') {
-        setError(null); 
-      } else {
-        setError(err.message.replace("Firebase: ", ""));
+
+      const data = await loginGoogle();
+
+      if(data && data.token) {
+        setAuthSession(data.token, data.role);
+
+        if(data.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       }
-    } finally {
-      setIsLoading(false);
-    }
+
+
+      console.log("Google login successful!", data.user);
+      navigate("/admin");
+    
   };
 
   return (
@@ -91,7 +86,7 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
               className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
               placeholder="admin@rollball.ph"
-              disabled={isLoading}
+              disabled={loading}
             />
           </div>
 
@@ -104,12 +99,12 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full mt-1 px-3 py-2 border rounded-lg bg-background"
               placeholder="••••••••"
-              disabled={isLoading}
+              disabled={loading}
             />
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? "Logging in..." : "Login"}
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </Button>
         </form>
 
@@ -129,7 +124,7 @@ export default function Login() {
           variant="outline" 
           className="w-full" 
           onClick={handleGoogleLogin}
-          disabled={isLoading}
+          disabled={loading}
         >
           <svg 
             className="mr-2 h-4 w-4" 
@@ -141,7 +136,7 @@ export default function Login() {
             <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
             <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
           </svg>
-          {isLoading ? "Waiting for Google ": "Login with Google"}
+          {loading ? "Waiting for Google ": "Login with Google"}
         </Button>
 
         <p className="text-xs text-muted-foreground text-center mt-6">

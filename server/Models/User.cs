@@ -1,21 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 
 namespace server.Models
 {
     public abstract class User
     {
+
         [Key]
-        public int? UserID { get; set; }
+        [Required]
+        [MaxLength(128)]
+        public string? UserID { get; set; }
 
         [Required]
         [MaxLength(50)]
         public string? Email { get; set; }
-
-        [Required]
-        [MaxLength(32)]
-        public string? Password { get; set; }
 
         [Required]
         [MaxLength(11)]

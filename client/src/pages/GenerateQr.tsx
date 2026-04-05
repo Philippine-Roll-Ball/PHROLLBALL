@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Download, QrCode as QrIcon, Save, Eye } from "lucide-react";
-import { useAuth } from "@/hook/useAuth"; 
+
 
 const ENTITY_TYPES = [
   { id: "member", label: "Member", placeholder: "e.g., MEM-2026-001" },
@@ -21,7 +21,6 @@ const generateSecureToken = () => {
 };
 
 export function GenerateQR() {
-  const { user } = useAuth();
   
   const [selectedEntity, setSelectedEntity] = useState(ENTITY_TYPES[0].id);
   const [inputValue, setInputValue] = useState("");
@@ -58,7 +57,7 @@ export function GenerateQR() {
     setError(null);
 
     try {
-      const authToken = await user?.getIdToken();
+      const authToken = await localStorage.getItem("jwtToken")
 
       const response = await fetch(`${BASE_URL}/api/qr/register`, {
         method: "POST",
@@ -69,8 +68,8 @@ export function GenerateQR() {
         body: JSON.stringify({
           entityType: selectedEntity, 
           data: inputValue,
-          securityToken: securityToken, // 🌟 Send the token to C#
-          createdByEmail: user?.email
+          securityToken: securityToken,
+          createdBy: "admin"
         })
       });
 

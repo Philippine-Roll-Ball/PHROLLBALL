@@ -5,7 +5,7 @@ import { AddressStep } from "@/components/AddressStep";
 import { PersonalDetailsStep  } from "@/components/PersonalDetailsStep";
 import { RoleStep } from "@/components/RoleStep";
 import { AccountCredentialsStep } from "@/components/AccountCredentialsStep";
-import { usePlayer } from "@/hook/utilizeUser";;
+import { usePlayer, useLogin } from "@/hook/utilizeUser";;
 // import { usePlayer } from "@/hook/usePlayer";
 // import { useAuth } from "@/hook/useAuth";
 // import { registerUser } from "@/services/apiService"; 
@@ -18,10 +18,12 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { registerPlayerAsync, isRegistering } = usePlayer();
+  const { loginUser } = useLogin();
 
   // const { registerPlayer, isPending } = usePlayer();
 
   const [formData, setFormData] = useState<User>({
+    Uid: "",
     firstName: "",
     middleName: "",
     lastName: "",
@@ -76,11 +78,13 @@ export default function Register() {
       const fullAddress = [barangay, city, province, region].filter(Boolean).join(", ");  
       const payload = {...rest, Address: fullAddress };
       
+      // Upon successful registration call the login service and issue a token to the user that will be check by the server
      
-      console.log("Form Data:", payload);
       await registerPlayerAsync(payload as User);
       console.log("Registered successfully!", payload);
 
+      
+      await loginUser(payload.email, payload.password);
       //NEED TO UNCOMMENT THIS IF AUTHENTICATION IS IMPLEMENTED
       //window.location.href("/home")
 
