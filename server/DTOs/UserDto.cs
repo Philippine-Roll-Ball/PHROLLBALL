@@ -1,17 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace server.DTOs
 {
     public class UserDto
     {
+        [JsonPropertyName("Uid")]
+        [Required]
+        [MaxLength(128)]
+        public string? UserID { get; set; }
+        
         [Required]
         [EmailAddress]
         [MaxLength(50)]
         public string? Email { get; set; }
-
-        [Required]
-        [MaxLength(32)]
-        public string? Password { get; set; }
 
         [Required]
         [MaxLength(11)]
