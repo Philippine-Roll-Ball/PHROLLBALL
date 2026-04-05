@@ -4,6 +4,9 @@ using Microsoft.IdentityModel.Tokens;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using server.Data;
+using System.Text;
+using System.Security.Claims;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,18 +47,27 @@ if (FirebaseApp.DefaultInstance == null)
     var firebaseProjectId = builder.Configuration["Firebase:ProjectId"];
 
 
+
+builder.Services.AddScoped<AuthenticationService>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.Authority = $"https://securetoken.google.com/{firebaseProjectId}";
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+
+
             ValidateIssuer = true,
-            ValidIssuer = $"https://securetoken.google.com/{firebaseProjectId}",
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+
             ValidateAudience = true,
-            ValidAudience = firebaseProjectId,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+
             ValidateLifetime = true,
-            RoleClaimType = "role" 
+            RoleClaimType = ClaimTypes.Role
 
         };
     });

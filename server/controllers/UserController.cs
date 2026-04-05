@@ -6,14 +6,16 @@ using server.Data;
 using server.DTOs;
 using server.Models;
 using Mapster;
+using server.Services;
 namespace server;
 
 [ApiController]
 [Route("api/[controller]")]
 public class UserController : ControllerBase {
+
     private readonly AppDbContext _context;
 
-    public UserController(AppDbContext context)
+    public UserController(AppDbContext context, AuthenticationService authService)
     {
         _context = context;
     }
@@ -23,6 +25,11 @@ public class UserController : ControllerBase {
     {
         try
         {
+
+            if (string.IsNullOrWhiteSpace(userRequest.UserID))
+            {
+                return BadRequest("Firebase UID is missing from the request.");
+            }
 
             bool exists = await _context.Users.AnyAsync(u =>
              u.Email == userRequest.Email &&
@@ -44,7 +51,11 @@ public class UserController : ControllerBase {
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
-            return Ok("Registration Successful!");
+
+            
+            // Call the JWT generation method passing the user's email and role
+            
+            return Ok(new { Message = "Registered Successfully" });
 
 
         }
