@@ -50,9 +50,9 @@ export const useLogin = () => {
         setError(null);
 
         try {
-            const firebaseUser = await authService.login(email, password);
+            const authenticatedUser = await authService.login(email, password);
             
-            return firebaseUser;
+            return authenticatedUser;
         } catch (error) {
             console.error("Login failed", error);
             setError(error.message.replace("Firebase: ", ""));
@@ -61,7 +61,24 @@ export const useLogin = () => {
         }
     };
 
-    return { loginUser, loading, error}
+    const loginGoogle = async () => {
+        setLoading(true);
+        setError(null);
+        
+        try {
+            const data = await authService.googleLogin();
+            return data
+        } catch (error) {
+            console.error("Google login failed", error);
+            if (error.code !== 'auth/popup-closed-by-user') {
+                setError(error.message?.replace("Firebase: ", "") || "Google Login Failed.");
+            }
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }
+    return { loginGoogle, loginUser, loading, error}
 
 }
 
