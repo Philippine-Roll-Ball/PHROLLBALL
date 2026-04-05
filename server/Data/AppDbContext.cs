@@ -34,7 +34,8 @@ namespace server.Data
             modelBuilder.Entity<User>()
                 .HasDiscriminator(u => u.Role)
                 .HasValue<Player>("Player")
-                .HasValue<Coach>("Coach");
+                .HasValue<Coach>("Coach")
+                .HasValue<Admin>("Admin");
 
             modelBuilder.Entity<TournamentTeam>()
                 .HasKey(tt => new { tt.TournamentID, tt.TeamID });
