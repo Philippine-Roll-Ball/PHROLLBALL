@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
+
 using server.Data; 
 using server.Models;
+
 
 namespace server.controllers
 {
@@ -19,10 +22,15 @@ namespace server.controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login(string token)
         {
-            Console.WriteLine($"Connected Successfully {request.Email} {request.Password}");
-            return Ok(new { message = "Connected!" });
+            Console.WriteLine($"Received token: {token}");
+
+            return Ok(new { message = "Login successful" });
+            // called from the client who successfully logged in using firebase, so this is trusted. 
+            // We just need to issue a JWT token for our own backend to recognize the user and their role.
+
+
         }
 
         
