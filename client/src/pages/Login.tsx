@@ -28,7 +28,7 @@ export default function Login() {
     try {
       // Firebase checks the password instead of your custom API
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log("Logged in successfully!", userCredential.user);
+      console.log("Login successful!", userCredential.user);
       
       // Redirect to admin panel upon success
       navigate("/admin");
