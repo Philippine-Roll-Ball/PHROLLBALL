@@ -23,6 +23,12 @@ public class UserController : ControllerBase {
     {
         try
         {
+            Console.WriteLine($"==============={userRequest.UserID}==================");
+
+            if (string.IsNullOrWhiteSpace(userRequest.UserID))
+            {
+                return BadRequest("Firebase UID is missing from the request.");
+            }
 
             bool exists = await _context.Users.AnyAsync(u =>
              u.Email == userRequest.Email &&
