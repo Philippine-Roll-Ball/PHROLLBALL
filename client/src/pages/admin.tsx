@@ -39,7 +39,7 @@ const stats = [
 export default function Admin() {
   // We only need 'user' and 'signOut' here now.
   // The Bouncer (ProtectedRoute) guarantees 'user' will NOT be null by the time this code runs!
-  const { user, signOut } = useAuth();
+  const { signOut } = useAuth();
   const [activeTab, setActiveTab] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -112,11 +112,11 @@ export default function Admin() {
           </div>
           <div className="flex items-center gap-3">
             <span className="text-sm text-muted-foreground hidden sm:block">
-              {user!.email}
+              {/* {user!.email} */}
             </span>
             <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold">
-                {user!.email?.charAt(0).toUpperCase()}
+                {/* {user!.email?.charAt(0).toUpperCase()} */}
               </span>
             </div>
           </div>
