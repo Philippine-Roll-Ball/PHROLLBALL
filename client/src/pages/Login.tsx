@@ -7,7 +7,6 @@ import { useLogin } from "@/hook/utilizeUser";
 export default function Login() {
 
   const { setAuthSession } = useAuth();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate();
 
   const { loginUser, loginGoogle, loading, error} = useLogin();
