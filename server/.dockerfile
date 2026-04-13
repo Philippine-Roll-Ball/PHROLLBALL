@@ -16,7 +16,8 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Render dynamically assigns a port, but .NET 8 defaults to 8080
-EXPOSE 8080
 ENV ASPNETCORE_HTTP_PORTS=8080
+EXPOSE 8080
+
 
 ENTRYPOINT ["dotnet", "server.dll"]

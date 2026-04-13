@@ -44,6 +44,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.removeItem("jwtToken");
       localStorage.removeItem("userRole");
   
+
+      console.log("user successfully Logged out");
       setIsAuthenticated(false);
       setRole(null);
       
