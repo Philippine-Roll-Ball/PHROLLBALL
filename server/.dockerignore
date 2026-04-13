@@ -1,0 +1,29 @@
+# This file tells gcloud what NOT to upload to the cloud
+.gcloudignore
+.git
+.gitignore
+
+# Visual Studio / IDE folders
+.vs/
+.vscode/
+*.user
+*.suo
+*.vsdx
+*.vsidx
+
+# Build and Publish folders (these are generated in the cloud, don't upload them)
+bin/
+obj/
+
+# Local settings
+appsettings.Development.json
+
+# Ignore frontend and local build artifacts 
+**/bin
+**/obj
+**/node_modules
+../frontend
+.git
+.github
+.vs
+.vscode
