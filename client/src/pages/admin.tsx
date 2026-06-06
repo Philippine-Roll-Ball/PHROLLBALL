@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hook/useAuth";
 import { GenerateQR } from "./GenerateQr";
+import { GalleryAdmin } from "@/components/GalleryAdmin";
 
 const sidebarItems = [
   { icon: LayoutDashboard, label: "Dashboard", key: "dashboard" },
@@ -142,7 +143,13 @@ export default function Admin() {
                 </div>
               ))}
             </div>
-          ) : activeTab === "generate QR" ? (
+          ) : activeTab === "gallery" ? (
+            <div className="animate-in fade-in duration-300">
+              <GalleryAdmin />
+            </div>
+          )
+          
+          : activeTab === "generate QR" ? (
             <div className="animate-in fade-in duration-300">
               <GenerateQR />
             </div>
