@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 using FirebaseAdmin;
+using Google.Cloud.Firestore;
+using Google.Cloud.Storage.V1;
 using Google.Apis.Auth.OAuth2;
 using server.Data;
 using System.Text;
@@ -19,36 +21,53 @@ builder.Services.AddSqlServer<AppDbContext>(
     sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()
 );
 
-if (FirebaseApp.DefaultInstance == null)
+GoogleCredential credential;
+
+if(!string.IsNullOrEmpty(firebaseJson) && firebaseJson.Trim().StartsWith("{"))
 {
-    GoogleCredential credential;
+    credential = GoogleCredential.FromJson(firebaseJson);
+}
+else 
+{
+    // Fallback for local development if you are using a path to a file
+    string? credentialPath = builder.Configuration["Firebase:AdminKeyPath"];
+    credential = GoogleCredential.FromFile(credentialPath);
+}
 
-    if (!string.IsNullOrEmpty(firebaseJson) && firebaseJson.Trim().StartsWith("{"))
-    {
-        credential = GoogleCredential.FromJson(firebaseJson);
-    }
-    else 
-    {
-        // Fallback for local development if you are using a path to a file
-        string? credentialPath = builder.Configuration["Firebase:AdminKeyPath"];
-        credential = GoogleCredential.FromFile(credentialPath);
-    }
-
+if(FirebaseApp.DefaultInstance == null)
+{
     var firebaseApp = FirebaseApp.Create(new AppOptions
     {
         Credential = credential
     });
+
     builder.Services.AddSingleton(firebaseApp);
-} else
+}
+else
 {
     builder.Services.AddSingleton(FirebaseApp.DefaultInstance);
 }
 
-    var firebaseProjectId = builder.Configuration["Firebase:ProjectId"];
+var firebaseProjectId = builder.Configuration["Firebase:ProjectId"];
+
+builder.Services.AddSingleton<FirestoreDb>(provider =>
+{
+    var firestoreBuilder = new FirestoreDbBuilder
+    {
+        ProjectId = firebaseProjectId,
+        Credential = credential
+    };
+    return firestoreBuilder.Build();
+});
+
+builder.Services.AddSingleton<StorageClient>(provider =>
+{
+    return StorageClient.Create(credential);
+});
 
 
 
-builder.Services.AddScoped<AuthenticationService>();
+    builder.Services.AddScoped<AuthenticationService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -101,7 +120,7 @@ var app = builder.Build();
 
 
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors("PrbfPolicy");
 
