@@ -16,3 +16,8 @@ export const uploadGalleryImages = async (formData: FormData) => {
 
 };
 
+export const deleteGalleryImage = async(id: string) => {
+    const response = await apiClient.delete(`api/gallery/d/${id}`);
+    return response.data;
+
+}
