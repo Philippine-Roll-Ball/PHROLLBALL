@@ -1,7 +1,7 @@
 import { apiClient } from "./apiClient";
 
-export const getGalleryItems = async () => {
-    const response = await apiClient.get(`api/gallery`);
+export const getGalleryImages = async () => {
+    const response = await apiClient.get(`api/gallery/a`);
     return response.data;
 };
 
