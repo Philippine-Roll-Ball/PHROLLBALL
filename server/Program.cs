@@ -1,14 +1,17 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-
+using System.Security.Claims;
+using System.Text;
 using FirebaseAdmin;
+using Google;
+using System.Threading.RateLimiting;
+using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
 using Google.Cloud.Storage.V1;
-using Google.Apis.Auth.OAuth2;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using server.Data;
-using System.Text;
-using System.Security.Claims;
 using server.Services;
+using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,10 +19,31 @@ var builder = WebApplication.CreateBuilder(args);
 string? firebaseJson = builder.Configuration["Firebase:AdminKeyPath"];
 // Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", firebaseJson);
 
-builder.Services.AddSqlServer<AppDbContext>(
-    builder.Configuration.GetConnectionString("DefaultConnection"),
-    sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()
-);
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlServerOptions =>
+        {
+            sqlServerOptions.EnableRetryOnFailure(
+                maxRetryCount: 5, 
+                maxRetryDelay: TimeSpan.FromSeconds(10),
+                errorNumbersToAdd: null);
+            sqlServerOptions.CommandTimeout(60);
+        }));
+
+// Rate Limiter
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("HealthCheckLimit", opt =>
+    {
+        opt.PermitLimit = 5;
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.QueueLimit = 0;
+    });
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+});
+
+
 
 GoogleCredential credential;
 
@@ -126,7 +150,12 @@ app.UseCors("PrbfPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRateLimiter();
 
 app.MapControllers();
-app.MapGet("/", () => "PRBF API Is Running!");
+app.MapGet("/health", async (HttpRequest request, AppDbContext db) =>
+{
+    bool isConnected = await db.Database.CanConnectAsync();
+    return isConnected ? Results.Ok("Awake") : Results.StatusCode(503);
+}).RequireRateLimiting("HealthCheckLimit");
 app.Run();
