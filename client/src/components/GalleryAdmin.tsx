@@ -17,8 +17,9 @@ export function GalleryAdmin() {
       setIsLoading(true);
       // Clean Axios call
       const data = await getGalleryImages(); 
-      // Adjust based on your C# response structure (e.g., data.items or just data)
-      setImages(data.items || []); 
+      // Adjusted based on C# response structure (e.g., data.items or just data)
+
+      setImages(data || []); 
     } catch (error) {
       console.error("Failed to fetch images:", error);
     } finally {
@@ -110,8 +111,9 @@ export function GalleryAdmin() {
             {images.map((img) => (
               <div key={img.id} className="group relative aspect-square rounded-xl overflow-hidden bg-muted border">
                 {/* Image */}
+               
                 <img 
-                  src={img.url} 
+                  src={img.imageUrl} 
                   alt="Gallery upload" 
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="lazy"
