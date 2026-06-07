@@ -153,9 +153,14 @@ app.UseAuthorization();
 app.UseRateLimiter();
 
 app.MapControllers();
-app.MapGet("/health", async (HttpRequest request, AppDbContext db) =>
+app.MapGet("/health", async (HttpRequest request, IConfiguration configuration) =>
 {
-    bool isConnected = await db.Database.CanConnectAsync();
-    return isConnected ? Results.Ok("Awake") : Results.StatusCode(503);
+    var secret = configuration["PING_SECRET"];
+
+    var header = request.Headers["X-Ping-Secret"].FirstOrDefault();
+    if (header != secret) return Results.Unauthorized();
+
+    return Results.Ok(new { status = "Healthy", timestamp = DateTime.UtcNow });
+
 }).RequireRateLimiting("HealthCheckLimit");
 app.Run();
