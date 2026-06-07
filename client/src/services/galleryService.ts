@@ -18,6 +18,6 @@ export const uploadGalleryImages = async (formData: FormData) => {
 };
 
 export const deleteGalleryImages = async(imageIds: string[]) => {
-    const response = await apiClient.post("api/gallery/delete-bulk/", {ids: imageIds});
+    const response = await apiClient.post("api/gallery/delete-bulk", imageIds);
     return response.data;
 }
