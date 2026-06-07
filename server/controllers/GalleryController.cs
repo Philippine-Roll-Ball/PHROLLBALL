@@ -64,7 +64,7 @@ namespace server.Controllers
                         contentType: file.ContentType,
                         source: stream
                         );
-                    string encodedName = Uri.EscapeDataString(uniqueFileName);
+                    string encodedName = Uri.EscapeDataString(storagePath);
                     string publicUrl = $"https://firebasestorage.googleapis.com/v0/b/{_bucketName}/o/{encodedName}?alt=media";
 
                     var docData = new Dictionary<string, object>
