@@ -2,6 +2,7 @@ import { apiClient } from "./apiClient";
 
 export const getGalleryImages = async () => {
     const response = await apiClient.get(`api/gallery/a`);
+    
     return response.data;
 };
 
@@ -16,8 +17,7 @@ export const uploadGalleryImages = async (formData: FormData) => {
 
 };
 
-export const deleteGalleryImage = async(id: string) => {
-    const response = await apiClient.delete(`api/gallery/d/${id}`);
+export const deleteGalleryImages = async(imageIds: string[]) => {
+    const response = await apiClient.post("api/gallery/delete-bulk", imageIds);
     return response.data;
-
 }
