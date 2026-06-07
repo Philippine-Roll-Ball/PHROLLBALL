@@ -22,7 +22,6 @@ namespace server.Controllers
         [HttpGet("a")]
         public async Task<IActionResult> GetGalleryImages()
         {
-            Console.WriteLine("Called");
             var collection = _firestoreDb.Collection("gallery_images");
             var snapshot = await collection.GetSnapshotAsync();
             var images = snapshot.Documents.Select(doc => new
@@ -99,6 +98,31 @@ namespace server.Controllers
                 return StatusCode(500, "An error occured while uploading the image. " + ex.Message);
             }
                 
+        }
+
+        // this endpoint will handle bulk deletion of gallery images
+        //. The request body will contain a list of document ids to be deleted.
+        /// <summary>
+        /// The endpoint will delete the corresponding documents from Firestore and the associated images from Cloud Storage.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("delete-bulk")]
+        public async Task<IActionResult> DeleteGalleryImages([FromBody] List<string> documentIds)
+        {
+            // delete both in Firestore
+            var collection = _firestoreDb.Collection("gallery_images");
+            foreach(var docId in documentIds)
+            {
+                var docRef = collection.Document(docId);
+                var snapshot = await docRef.GetSnapshotAsync();
+                if(snapshot.Exists)
+                {
+                    string storagePath = snapshot.GetValue<string>("storage_path");
+                    await _storageClient.DeleteObjectAsync(_bucketName, storagePath);
+                    await docRef.DeleteAsync();
+                }
+            }
+            return Ok("Delete");
         }
     }
 }
