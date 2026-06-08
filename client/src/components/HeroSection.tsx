@@ -144,22 +144,6 @@ export function HeroSection() {
               
             </div>
 
-            {/* Stats - Always Visible */}
-            <div className="flex items-center gap-6 pt-4 border-t border-primary-foreground/20">
-              <div>
-                <div className="font-display text-3xl md:text-4xl text-accent">500+</div>
-                <div className="text-primary-foreground/60 text-xs uppercase tracking-wider">Players</div>
-              </div>
-              <div>
-                <div className="font-display text-3xl md:text-4xl text-accent">17</div>
-                <div className="text-primary-foreground/60 text-xs uppercase tracking-wider">Regions</div>
-              </div>
-              <div>
-                <div className="font-display text-3xl md:text-4xl text-accent">50+</div>
-                <div className="text-primary-foreground/60 text-xs uppercase tracking-wider">Events</div>
-              </div>
-            </div>
-
             {/* Carousel Indicators & Navigation */}
             <div className="flex items-center justify-between pt-4">
               <div className="flex gap-2">
