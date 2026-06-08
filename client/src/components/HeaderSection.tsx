@@ -2,6 +2,7 @@ import Logo from "@/assets/PRBALOGO.svg"
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 
 const navLinks = [
@@ -12,7 +13,6 @@ const navLinks = [
   { label: "Gallery", href: "#gallery" },
   { label: "News", href: "#news" },
   { label: "Contact", href: "#contact" },
-  { label: "login", href: "/login" },
 ];
 
 export function HeaderSection() {
@@ -48,9 +48,11 @@ export function HeaderSection() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button className="gradient-gold text-accent-foreground font-semibold shadow-gold hover:opacity-90 transition-opacity">
-              Join Us
-            </Button>
+            <Link to="/login">
+              <Button className="gradient-gold text-accent-foreground font-semibold shadow-gold hover:opacity-90 transition-opacity">
+                Login
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -77,9 +79,11 @@ export function HeaderSection() {
                   {link.label}
                 </a>
               ))}
-              <Button className="gradient-gold text-accent-foreground font-semibold shadow-gold w-full mt-2">
-                Join Us
-              </Button>
+              <Link to="/login">
+                <Button className="gradient-gold text-accent-foreground font-semibold shadow-gold w-full mt-2">
+                  Login
+                </Button>
+              </Link>
             </div>
           </nav>
         )}

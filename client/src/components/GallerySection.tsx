@@ -1,199 +1,45 @@
-import { useState } from "react";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import national from "../assets/hero-bg.jpg";
-import dubai from "../assets/gallery/dubai.jpg";
-import training from "../assets/gallery/training.jpg";
-import dona from "../assets/gallery/dona.jpg";
-import phteam from "../assets/gallery/phteam.jpg";
-import roll from "../assets/gallery/roll.jpg";
-const galleryImages = [
-  {
-    id: 1,
-    title: "National Championship 2025",
-    category: "Championship",
-    src: national,
-  },
-   {
-    id: 2,
-    title: "World Cup in Dubai",
-    category: "Championship",
-    src: dubai,
-  },
-  {
-    id: 3,
-    title: "Youth Training Camp",
-    category: "Training",
-    src: training,
-  },
-  
-  // {
-  //   id: 4,
-  //   title: "Visayas Regional Finals",
-  //   category: "Regional",
-  //   src: dona,
-  // },
-  {
-    id: 5,
-    title: "Team Philippines",
-    category: "National Team",
-    src: phteam,
-  },
-  {
-    id: 6,
-    title: "Awards Ceremony",
-    category: "Events",
-    src: roll,
-  },
-  {
-    id: 7,
-    title: "Community Outreach",
-    category: "Community",
-    src: dona,
-  },
+import heroBg from "@/assets/hero-bg.jpg";
+import heroBg1 from "@/assets/herobg.jpg";
+import heroBg2 from "@/assets/herobg2.jpg";
+
+const IMAGES = [
+  { src: heroBg2, alt: "Inline skates and roll ball on court", span: "sm:col-span-2 sm:row-span-2" },
+  { src: heroBg1, alt: "Team celebrating victory", span: "" },
+  { src: heroBg, alt: "Athlete handling the roll ball", span: "" },
+  { src: heroBg2, alt: "Youth training session", span: "sm:col-span-2" },
 ];
 
-const categories = ["All", "Championship", "Training", "National Team", "Events", "Community"];
-
 export function GallerySection() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [currentImage, setCurrentImage] = useState(0);
-
-  const filteredImages = selectedCategory === "All" 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === selectedCategory);
-
-  const openLightbox = (index: number) => {
-    setCurrentImage(index);
-    setLightboxOpen(true);
-  };
-
-  const closeLightbox = () => setLightboxOpen(false);
-
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % filteredImages.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + filteredImages.length) % filteredImages.length);
-  };
-
   return (
-    <section id="gallery" className="py-20 md:py-32 bg-background">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-accent/20 text-accent-foreground text-sm font-semibold mb-4">
-            Photo Gallery
-          </span>
-          <h2 className="font-display text-4xl md:text-6xl text-foreground mb-4">
-            CAPTURING <span className="text-gradient-gold">MOMENTS</span>
+    <section id="gallery" className="bg-background py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h2 className="font-display text-3xl font-extrabold text-foreground sm:text-4xl">
+            Moments on Wheels
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Relive the excitement and passion of Philippine Rollball through our collection of memorable moments
+          <p className="mt-4 text-lg text-muted-foreground">
+            Capturing the heart and soul of Philippine Roll Ball.
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                selectedCategory === category
-                  ? "gradient-blue text-primary-foreground shadow-primary-glow"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {filteredImages.map((image, index) => (
+        <div className="mt-12 grid auto-rows-[200px] grid-cols-2 gap-4 sm:grid-cols-4">
+          {IMAGES.map((img) => (
             <div
-              key={image.id}
-              className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer"
-              onClick={() => openLightbox(index)}
+              key={img.alt}
+              className={`group relative overflow-hidden rounded-2xl ${img.span}`}
             >
-              {/* Placeholder with gradient - would be replaced with actual images */}
-             <img
-              src={image.src}
-              alt={image.title}
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-            />
-              
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/60 transition-colors flex items-center justify-center">
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity text-center p-4">
-                  <h4 className="font-display text-xl text-primary-foreground mb-1">{image.title}</h4>
-                  <span className="text-sm text-primary-foreground/80">{image.category}</span>
-                </div>
-              </div>
-
-              {/* Decorative Element */}
-              <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="h-1 bg-accent rounded-full" />
-              </div>
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                width={800}
+                height={800}
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-primary/0 transition-colors group-hover:bg-primary/30" />
             </div>
           ))}
         </div>
-
-        {/* Lightbox */}
-        {lightboxOpen && (
-          <div className="fixed inset-0 z-50 bg-foreground/95 flex items-center justify-center p-4">
-            <button
-              onClick={closeLightbox}
-              className="absolute top-4 right-4 p-2 text-primary-foreground hover:text-accent transition-colors"
-            >
-              <X size={32} />
-            </button>
-
-            <button
-              onClick={prevImage}
-              className="absolute left-4 p-2 text-primary-foreground hover:text-accent transition-colors"
-            >
-              <ChevronLeft size={48} />
-            </button>
-
-            <div className="max-w-4xl w-full aspect-video rounded-xl overflow-hidden">
-              <div className="max-w-4xl w-full aspect-video rounded-xl overflow-hidden relative">
-                <img
-                  src={filteredImages[currentImage]?.src}
-                  alt={filteredImages[currentImage]?.title}
-                  className="w-full h-full object-cover rounded-xl"
-                />
-                <div className="absolute bottom-4 left-4 text-primary-foreground bg-black/40 p-2 rounded">
-                  <h3 className="font-display text-2xl">{filteredImages[currentImage]?.title}</h3>
-                  <p className="text-sm">{filteredImages[currentImage]?.category}</p>
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={nextImage}
-              className="absolute right-4 p-2 text-primary-foreground hover:text-accent transition-colors"
-            >
-              <ChevronRight size={48} />
-            </button>
-
-            {/* Thumbnails */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-              {filteredImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImage(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    currentImage === index ? "bg-accent w-6" : "bg-primary-foreground/50"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
