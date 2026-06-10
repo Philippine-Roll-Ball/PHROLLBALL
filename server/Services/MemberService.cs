@@ -34,6 +34,12 @@ namespace server.Services
             };
         }
 
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
+        {
+            return new IEnumerable<UserDto>();
+
+        }
+
         
 
         public async Task<UserDto?> CreateAsync(UserDto user)
