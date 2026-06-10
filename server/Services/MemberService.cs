@@ -40,5 +40,13 @@ namespace server.Services
             // replace with actual implementation soon
             return new UserDto();
         }
+
+        public async Task<UserDto?> UpdateAsync(Guid id, UserDto user)
+        {
+            // will replace with the actual implementation soon
+            return new UserDto();
+        }
+
+        
     }
 }
