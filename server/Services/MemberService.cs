@@ -1,4 +1,5 @@
-﻿using server.DTOs;
+﻿using System.Formats.Asn1;
+using server.DTOs;
 using server.Repositories;
 using server.Services.Interfaces;
 
@@ -47,6 +48,10 @@ namespace server.Services
             return new UserDto();
         }
 
-        
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            // will replace with the actual implementation soon
+            return true;
+        }
     }
 }
