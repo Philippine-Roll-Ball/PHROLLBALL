@@ -18,7 +18,6 @@ import {
 import { useAuth } from "@/hook/useAuth";
 import { GenerateQR } from "./GenerateQr";
 import { GalleryAdmin } from "@/components/GalleryAdmin";
-import { MemberSection } from "@/components/MemberSection";
 
 const sidebarItems = [
   { icon: LayoutDashboard, label: "Dashboard", key: "dashboard" },
@@ -226,8 +225,6 @@ export default function Admin() {
             <GalleryAdmin />
           ) : activeTab === "generate QR" ? (
             <GenerateQR />
-          ) : activeTab === "members" ? (
-            <MemberSection />
           ) : (
             <div className="bg-card border rounded-xl p-12 text-center">
               <h2 className="text-xl font-display capitalize">{activeTab}</h2>
