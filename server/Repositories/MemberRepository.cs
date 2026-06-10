@@ -1,8 +1,10 @@
 ﻿using System;
+using server.Data;
 namespace server.Repositories
 {
-    public class MemberRepository : IMemberService
+    public class MemberRepository : IMemberRepository
     {
-        public MemberRepository()
+        private readonly AppDbContext _context;
+        public MemberRepository(AppDbContext context) => _context = context; 
     }
 }
