@@ -26,6 +26,17 @@ namespace server.Repositories
             return user;
         }
 
+        public async Task<User?> UpdateAsync(User user)
+        {
+            var existingUser = await _context.Users.FindAsync(user.UserID);
+            if (existingUser == null) return null;
+            _context.Entry(existingUser).CurrentValues.SetValues(user);
+
+            await _context.SaveChangesAsync();
+
+            return existingUser;
+        }
+
         public async Task<bool> DeleteAsync(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
