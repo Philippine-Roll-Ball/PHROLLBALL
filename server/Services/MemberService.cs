@@ -36,7 +36,19 @@ namespace server.Services
 
         public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
-            return new IEnumerable<UserDto>();
+           var members = await _repo.GetAllAsync();
+            return members.Select(user => new UserDto
+            {
+                UserID = user.UserID,
+                Email = user.Email,
+                ContactNumber = user.ContactNumber,
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
+                Suffix = user.Suffix,
+                BirthDate = user.BirthDate,
+                Address = user.Address,
+            });
 
         }
 
