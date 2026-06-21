@@ -53,6 +53,8 @@ export function GenerateQR() {
 
   // STEP 2: Save to Database
   const handleRegister = async () => {
+
+    if (isLoading || isRegistered) return;
     setIsLoading(true);
     setError(null);
 
@@ -196,7 +198,7 @@ export function GenerateQR() {
             {!isRegistered ? (
               <button
                 onClick={handleRegister}
-                disabled={isLoading}
+                disabled={isLoading || isRegistered}
                 className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-2 rounded-lg font-medium hover:bg-primary/90 disabled:opacity-50 transition-colors"
               >
                 <Save className="w-4 h-4" />

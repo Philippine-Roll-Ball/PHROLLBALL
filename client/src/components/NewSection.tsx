@@ -1,9 +1,65 @@
-import { ChevronRight, Newspaper, Handshake, Video } from "lucide-react";
+import { ChevronRight, Newspaper, Handshake, Video, Award, Volleyball } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroBg1 from "@/assets/herobg.jpg";
 import heroBg2 from "@/assets/herobg2.jpg";
-
+import courtesy_call from "@/assets/news/courtesy_call.jpg"
+import psc_award from "@/assets/news/psc_award.jpg";
+import dubai from "@/assets/news/dubai.jpg";
+import coron_skaters from "@/assets/news/coron_skaters.jpg";
+import welcome_lingayen from "@/assets/news/welcome_lingayen.png";
+import silvina_moa_signing from "@/assets/news/silvina_moa_signing.jpg";
+import first_friendship_cup from "@/assets/news/first_friendship_cup.jpg";
 const NEWS = [
+  {
+    date: "JUN 18, 2026",
+    icon: Award,
+    image: psc_award,
+    title: "Philippine Sports Commission (PSC) Awarding",
+    body: "The Philippine Roll Ball Association, Inc. (PRBA) proudly recognizes and awards the athletes who represented the Philippines in the 4th Asian Roll Ball Championship and the 7th Roll Ball World Cup 2025."
+  },
+
+  {
+    date: "JUN 18, 2026",
+    icon: Newspaper,
+    image: courtesy_call,
+    title: "Courtesy Call with PSC Executive Director",
+    body: "PRBA conducted a courtesy call with Philippine Sports Commission (PSC) Executive Director Atty. Guillermo Iroy to discuss initiatives and opportunities for the continued growth and development of Roll Ball and other roller skating sports in the Philippines."
+  },
+  {
+    date: "JUN 15, 2026",
+    icon: Newspaper,
+    image: first_friendship_cup,
+    title: "First Luzon Roll Ball Cup Opened!",
+    body: "The first-ever Luzon Roll Ball Cup has been opened by the PRBA inviting various Roll Ball Associations including CRBA, URS RBA, and Lingayen Roll Ball."
+  },
+  {
+    date: "JUN 2, 2026",
+    icon: Newspaper,
+    image: silvina_moa_signing,
+    title: "MOA Signing Silvina Court",
+    body: "Philippine Roll Ball Association (PRBA) succesfully signed the Memorandum of Agreement with Silvina Village Homeowners Association Inc. in Collaboration with URS RBA."
+  },
+  {
+    date: "May 7, 2026",
+    icon: Newspaper,
+    image: welcome_lingayen,
+    title: "Lingayen Roll Ball Unlocked!",
+    body: "PRBA together with URS RBA and Coron RBA traveled to Pangasinan to introduce Roll Ball sports to their skating community."
+  },
+  {
+    date: "APR 1, 2026",
+    icon: Volleyball,
+    image: coron_skaters,
+    title: "Palawan Roll Ball Association Unlocked!",
+    body: "PRBA led by Ptr. Tony Ortega successfully acknowledges the newly recognized roll ball association from Coron Skaters Club"
+  },
+  {
+    date: "DEC 23, 2025",
+    icon: Volleyball,
+    image: dubai,
+    title: "7th Roll ball World CUP at Dubai, UAE",
+    body: "The Philippine Roll Ball Association, Inc. (PRBA) proudly represents the Philippines as they participated on the 7th Roll Ball World CUP held at Dubai, UAE"
+  },
   {
     date: "OCT 24, 2024",
     icon: Newspaper,
@@ -25,6 +81,7 @@ const NEWS = [
     title: "Watch: Highlights from the Cebu Open",
     body: "Relive the most exciting moments from the three-day tournament in the Queen City of the South.",
   },
+  
 ];
 
 export function NewsSection() {
