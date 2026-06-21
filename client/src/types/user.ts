@@ -18,8 +18,8 @@ export interface User {
     barangay: Barangay["brgy_name"];
     role: string;
     email: string;
-    password: string;
-    confirmPassword: string;
+    password?: string;
+    confirmPassword?: string;
     Address: string;
     
 }
