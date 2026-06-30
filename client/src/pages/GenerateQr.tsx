@@ -9,6 +9,7 @@ const ENTITY_TYPES = [
   { id: "team", label: "Team", placeholder: "e.g., TM-MANILA-0001" },
   { id: "event", label: "Event", placeholder: "e.g., EVT-NAT-2026" },
   { id: "document", label: "Document", placeholder: "e.g., DOC-CERT-0001" }, 
+  { id: "certificate", label: "Certificate", placeholder: "e.g., CERT-LRBFC-2026-001" }, 
 ];
 //GET VITE CLIENT 
 const PUBLIC_BASE_URL = import.meta.env.VITE_CLIENT_URL;
