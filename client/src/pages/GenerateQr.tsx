@@ -3,12 +3,12 @@ import { Download, QrCode as QrIcon, Save, Eye } from "lucide-react";
 
 
 const ENTITY_TYPES = [
-  { id: "member", label: "Member", placeholder: "e.g., MEM-2026-001" },
-  { id: "player", label: "Player", placeholder: "e.g., PLY-2026-089" },
-  { id: "coach", label: "Coach", placeholder: "e.g., CCH-2026-012" },
-  { id: "team", label: "Team", placeholder: "e.g., TM-MANILA-01" },
+  { id: "member", label: "Member", placeholder: "e.g., MEM-2026-0001" },
+  { id: "player", label: "Player", placeholder: "e.g., PLY-2026-0089" },
+  { id: "coach", label: "Coach", placeholder: "e.g., CCH-2026-0012" },
+  { id: "team", label: "Team", placeholder: "e.g., TM-MANILA-0001" },
   { id: "event", label: "Event", placeholder: "e.g., EVT-NAT-2026" },
-  { id: "document", label: "Document", placeholder: "e.g., DOC-CERT-001" }, 
+  { id: "document", label: "Document", placeholder: "e.g., DOC-CERT-0001" }, 
 ];
 //GET VITE CLIENT 
 const PUBLIC_BASE_URL = import.meta.env.VITE_CLIENT_URL;
