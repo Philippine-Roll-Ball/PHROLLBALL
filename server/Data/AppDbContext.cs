@@ -9,15 +9,13 @@ namespace server.Data
         {
         }
 
-        // 1. CONSOLIDATED DBSETS
-        // Replaced Admins, Players, and Coaches with a single Users table.
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<Admin> Admins { get; set; }
 
-        // 2. UNCHANGED DBSETS
         public DbSet<Match> Matches { get; set; }
-        public DbSet<Team> Teams { get; set; }
+        public DbSet<Team> Teams { get; set; }                                                     
         public DbSet<Tournament> Tournaments { get; set; }
         public DbSet<TournamentTeam> TournamentTeams { get; set; }
         public DbSet<MatchTeam> MatchTeams { get; set; }
