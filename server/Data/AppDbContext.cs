@@ -22,6 +22,7 @@ namespace server.Data
         public DbSet<TournamentTeam> TournamentTeams { get; set; }
         public DbSet<MatchTeam> MatchTeams { get; set; }
         public DbSet<QrCode> Qrcodes { get; set; }
+        public DbSet<News> News { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -88,6 +89,27 @@ namespace server.Data
                     v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)
                           .Select(s => (string?)s).ToList()
                 );
+
+            modelBuilder.Entity<News>(entity =>
+            {
+                entity.HasKey(n => n.Id);
+
+                entity.Property(n => n.Headline)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(n => n.Body)
+                    .IsRequired()
+                    .HasMaxLength(9999);
+
+                entity.Property(n => n.CreatedAt)
+                    .IsRequired()
+                    .HasDefaultValueSql("GETUTCDATE()"); 
+
+                entity.Property(n => n.UpdatedAt)
+                    .IsRequired()
+                    .HasDefaultValueSql("GETUTCDATE()");
+            });
         }
     }
 }

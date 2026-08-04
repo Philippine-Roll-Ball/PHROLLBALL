@@ -1,4 +1,4 @@
-# 🏀 Philippine Rollball Association Website
+#  Philippine Rollball Association Website
 
 [![Website](https://img.shields.io/badge/Website-Live-blue)](https://www.philrollball.org.ph)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)]()
@@ -7,7 +7,7 @@
 [![REACT](https://img.shields.io/badge/REACT-blue)]()
 ---
 
-## 🌟 About
+##  About
 
 **Philippine Rollball Association** is the official platform for promoting **Rollball** in the Philippines. Rollball is a dynamic team sport that combines elements of basketball, handball, and soccer. The website serves as a hub for players, fans, and officials to learn about the sport, follow events, view media, and connect with the association.
 
@@ -15,7 +15,7 @@ This website is **responsive, user-friendly, and informative**, designed to show
 
 ---
 
-## 🎯 Objectives
+##  Objectives
 
 * Promote the sport of Rollball across the Philippines
 * Share news, events, and updates about tournaments and championships
@@ -38,7 +38,7 @@ This website is **responsive, user-friendly, and informative**, designed to show
 
 ---
 
-## 🌐 Features
+##  Features
 
 * **Home Page** – Latest news, events, and announcements
 * **Rollball Section** – Rules, gameplay, and introduction to the sport
@@ -49,7 +49,7 @@ This website is **responsive, user-friendly, and informative**, designed to show
 
 ---
 
-## ⚡ How to Run Locally (React + Tailwind)
+##  How to Run Locally (React + Tailwind)
 
 1. Clone the repository:
 
