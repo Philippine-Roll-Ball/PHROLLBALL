@@ -1,7 +1,6 @@
 import { ChevronRight, Newspaper, Handshake, Video, Award, Volleyball } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
-import heroBg1 from "@/assets/herobg.jpg";
-import heroBg2 from "@/assets/herobg2.jpg";
+
 import courtesy_call from "@/assets/news/courtesy_call.jpg"
 import psc_award from "@/assets/news/psc_award.jpg";
 import dubai from "@/assets/news/dubai.jpg";
@@ -9,7 +8,18 @@ import coron_skaters from "@/assets/news/coron_skaters.jpg";
 import welcome_lingayen from "@/assets/news/welcome_lingayen.png";
 import silvina_moa_signing from "@/assets/news/silvina_moa_signing.jpg";
 import first_friendship_cup from "@/assets/news/first_friendship_cup.jpg";
+import featured_lrbfc from "@/assets/news/featured_lrbfc.png"; 
+import larong_pinoy from "@/assets/news/larong_pinoy.png"
+import aha from "@/assets/news/aha.png"
+import training_dona from "@/assets/news/training_dona.png"
 const NEWS = [
+  {
+    date: "JUL 03, 2026",
+    icon: Newspaper,
+    image: featured_lrbfc,
+    title: "Luzon Roll Ball Friendship Cup, Featured on PTV Sports",
+    body: "The concluded Luzon Roll Ball Friendship Cup - the first Roll Ball tournament hosted by PRBA was featured by the PTV Sports to recognize this remarkable achievement."
+  },
   {
     date: "JUN 18, 2026",
     icon: Award,
@@ -61,25 +71,25 @@ const NEWS = [
     body: "The Philippine Roll Ball Association, Inc. (PRBA) proudly represents the Philippines as they participated on the 7th Roll Ball World CUP held at Dubai, UAE"
   },
   {
+    date: "SEP 14, 2025",
+    icon: Newspaper,
+    image: larong_pinoy,
+    title: "Philippine Roll Ball Association, Featured on Larong Pinoy",
+    body: "The Philippine Roll Ball Association, Inc. (PRBA) proudly introduces the sport to a sports news channel."
+  },
+  {
     date: "OCT 24, 2024",
     icon: Newspaper,
-    image: heroBg,
-    title: "National Team Training Camp kicks off in Pasig",
-    body: "Elite athletes from across the country gather for intensive training sessions ahead of the upcoming Asian Championship.",
+    image: training_dona,
+    title: "National Team Training Camp kicks off in Doña Petrona, Quezon city",
+    body: "Elite athletes from across the country gather for intensive training sessions ahead of the upcoming 7th Roll Ball World Cup.",
   },
   {
-    date: "SEP 12, 2024",
-    icon: Handshake,
-    image: heroBg1,
-    title: "PRBA Partners with DepEd for School Sports",
-    body: "A landmark agreement to include Roll Ball in regional sports meets starting next year.",
-  },
-  {
-    date: "AUG 30, 2024",
+    date: "SEP 20, 2023",
     icon: Video,
-    image: heroBg2,
-    title: "Watch: Highlights from the Cebu Open",
-    body: "Relive the most exciting moments from the three-day tournament in the Queen City of the South.",
+    image: aha,
+    title: "PRBA, featured in official Philippine TV Program AHA",
+    body: "Along with new and known members, PRBA continues to propagate the sports by introducing and being featured in the famous GMA Program.",
   },
   
 ];

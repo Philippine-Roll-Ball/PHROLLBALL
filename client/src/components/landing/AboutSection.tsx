@@ -1,7 +1,7 @@
 import { Timer, Users2, Goal, Zap } from "lucide-react";
 
-export const AboutSection = () => {
-  const features = [
+
+const features = [
     {
       icon: Timer,
       stat: "30",
@@ -28,6 +28,7 @@ export const AboutSection = () => {
     },
   ];
 
+export function AboutSection() {
   return (
     <section id="rollball" className="py-24 md:py-32 bg-muted/30">
       <div className="container mx-auto px-6 lg:px-12">

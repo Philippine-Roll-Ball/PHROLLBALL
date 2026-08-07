@@ -38,7 +38,7 @@ const App = () => (
             <Route path="/verify" element={<VerifyQr />} />
             <Route path="/register" element={<Register />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
-
+            
             <Route element={<AdminLayout />}>
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/admin/members" element={<Member />} />
@@ -47,9 +47,6 @@ const App = () => (
                 <Route path="/admin/gallery" element={<Gallery />} />
                 <Route path="/admin/news" element={<News />} />
                 <Route path="/admin/settings" element={<Settings />} />
-
-                
-                
             </Route>
 
             <Route 
