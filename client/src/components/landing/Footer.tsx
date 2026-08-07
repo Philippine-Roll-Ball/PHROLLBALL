@@ -1,4 +1,4 @@
-import logo from "../assets/PRBALOGO.svg";
+import logo from "../../assets/PRBALOGO.svg";
 
 import { Facebook, Youtube, Mail } from "lucide-react";
 
