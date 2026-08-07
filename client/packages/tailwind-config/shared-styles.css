@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* ==============================
+   Theme Tokens
+============================== */
+@source "../ui-web";
+@source "../utils";
+
+@theme {
+
+  /* Brand */
+  --color-primary: #0038A8;
+  --color-primary-hover: #002D82;
+
+  --color-secondary: #CE1126;
+  --color-secondary-hover: #B20F20;
+
+  --color-accent: #FCD116;
+
+  /* Background */
+  --color-background: #FAF8FF;
+  --color-surface: #FFFFFF;
+  --color-muted: #F4F4F5;
+
+  /* Text */
+  --color-text: #111827;
+  --color-text-muted: #6B7280;
+  --color-white: #FFFFFF;
+
+  /* Border */
+  --color-border: #E5E7EB;
+
+  /* Status */
+  --color-success: #16A34A;
+  --color-warning: #F59E0B;
+  --color-error: #DC2626;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / .05);
+  --shadow-md: 0 4px 10px rgb(0 0 0 / .08);
+  --shadow-lg: 0 10px 30px rgb(0 0 0 / .12);
+}
+
+/* Import Layers */
+
+@import "./components.css";
+@import "./utilities.css";
+@import "./animations.css";
