@@ -15,21 +15,61 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+// Height of the fixed header (h-16 = 64px mobile, md:h-20 = 80px desktop)
+// used to offset the scroll so the target section isn't hidden underneath it.
+const HEADER_OFFSET = {
+  mobile: 64,
+  desktop: 80,
+};
+
 export function HeaderSection() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const scrollToSection = (href: string) => {
+    const targetId = href.replace("#", "");
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    const offset = isDesktop ? HEADER_OFFSET.desktop : HEADER_OFFSET.mobile;
+
+    const targetPosition =
+      target.getBoundingClientRect().top + window.scrollY - offset;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth",
+    });
+  };
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    setIsOpen(false);
+    scrollToSection(href);
+    // Keep the URL hash in sync without triggering the browser's
+    // default (instant) jump-to-anchor behavior.
+    window.history.pushState(null, "", href);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-2">
+          <a
+            href="#home"
+            className="flex items-center gap-2"
+            onClick={(e) => handleNavClick(e, "#home")}
+          >
             <div className="w-10 h-10 rounded-full gradient-hero flex items-center justify-center">
              <img src={Logo} alt="PRBA Logo" />
              </div>
            
             <span className="font-display text-2xl text-foreground hidden sm:block">
-              Philippine <span className="text-primary">Rollball Federation</span>
+              Philippine <span className="text-primary">Roll Ball Association</span>
             </span>
           </a>
 
@@ -39,6 +79,7 @@ export function HeaderSection() {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {link.label}
@@ -74,7 +115,7 @@ export function HeaderSection() {
                   key={link.label}
                   href={link.href}
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                 >
                   {link.label}
                 </a>

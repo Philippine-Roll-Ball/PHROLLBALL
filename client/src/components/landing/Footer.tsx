@@ -36,8 +36,8 @@ export function Footer() {
                <img src={logo} alt="Philippine Rollball Logo" />
               </div>
               <div>
-                <h3 className="font-display text-2xl">Philippine Rollball</h3>
-                <p className="text-primary-foreground/60 text-sm">Official Federation</p>
+                <h3 className="font-display text-2xl">Philippine Roll Ball Association</h3>
+                <p className="text-primary-foreground/60 text-sm">Official Website</p>
               </div>
             </div>
             <p className="text-primary-foreground/70 mb-6 max-w-sm">
@@ -68,7 +68,7 @@ export function Footer() {
 
           {/* Links Sections */}
           <div>
-            <h4 className="font-display text-lg mb-4">Federation</h4>
+            <h4 className="font-display text-lg mb-4">Association</h4>
             <ul className="space-y-3">
               {footerLinks.federation.map((link) => (
                 <li key={link.label}>

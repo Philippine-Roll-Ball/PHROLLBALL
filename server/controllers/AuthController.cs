@@ -55,8 +55,6 @@ namespace server.controllers
             catch (Exception ex)
             {
                 return Unauthorized(new { message = "Invalid token", error = ex.Message });
-
-
             }
 
         }

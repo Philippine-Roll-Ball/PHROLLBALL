@@ -14,7 +14,7 @@ namespace server.Models
         [JsonPropertyName("data")]
         public string? Data { get; set; }
         
-        [JsonPropertyName("createdByEmail")]
+        [JsonPropertyName("createdBy")]
         public string? CreatedByEmail { get; set; }
     }
 }

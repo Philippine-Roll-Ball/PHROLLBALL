@@ -1,12 +1,25 @@
-import heroBg from "@/assets/hero-bg.jpg";
-import heroBg1 from "@/assets/herobg.jpg";
-import heroBg2 from "@/assets/herobg2.jpg";
+import {
+  briefing,
+  coron,
+  dona,
+  dubai,
+  goal,
+  phteam,
+  roll,
+  tog,
+  training,
+} from "@/assets/gallery";
 
 const IMAGES = [
-  { src: heroBg2, alt: "Inline skates and roll ball on court", span: "sm:col-span-2 sm:row-span-2" },
-  { src: heroBg1, alt: "Team celebrating victory", span: "" },
-  { src: heroBg, alt: "Athlete handling the roll ball", span: "" },
-  { src: heroBg2, alt: "Youth training session", span: "sm:col-span-2" },
+  { src: goal, alt: "Athlete scoring a goal", span: "sm:col-span-2 sm:row-span-2" },
+  { src: phteam, alt: "Philippine Roll Ball team", span: "" },
+  { src: dubai, alt: "Team representing at the World Cup in Dubai", span: "" },
+  { src: training, alt: "Youth training session", span: "sm:col-span-2" },
+  { src: briefing, alt: "Coach briefing the team", span: "" },
+  { src: coron, alt: "Coron Roll Ball skaters", span: "" },
+  { src: tog, alt: "Team celebrating together", span: "" },
+  { src: roll, alt: "Athlete handling the roll ball", span: "" },
+  { src: dona, alt: "Roll Ball community moment", span: "" },
 ];
 
 export function GallerySection() {

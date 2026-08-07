@@ -17,6 +17,112 @@ namespace server.controllers
         {
             _context = context;
         }
+
+        
+
+        [HttpPost("register-bulk")]
+        public async Task<IActionResult> QrRegisterBulk([FromBody] QrCodeBulkRequest request)
+        {
+            if (request.Items == null || request.Items.Count == 0)
+            {
+                return BadRequest("No QR codes provided to register.");
+            }
+
+            const int MaxBatchSize = 500;
+            if (request.Items.Count > MaxBatchSize)
+            {
+                return BadRequest($"Batch too large. Max {MaxBatchSize} items per request.");
+            }
+
+            var results = new List<QrBulkResultItem>();
+
+            // Guard against duplicate "Data" values within the same incoming batch
+            var incomingData = request.Items.Select(i => i.Data).ToList();
+            var duplicatesInBatch = incomingData
+                .GroupBy(d => d)
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key)
+                .ToHashSet();
+
+            // Single query to find which of these already exist in the DB
+            var existingData = await _context.Qrcodes
+                .Where(q => incomingData.Contains(q.Data))
+                .Select(q => q.Data)
+                .ToListAsync();
+            var existingSet = existingData.ToHashSet();
+
+            var toInsert = new List<QrCode>();
+
+            foreach (var item in request.Items)
+            {
+                if (duplicatesInBatch.Contains(item.Data))
+                {
+                    results.Add(new QrBulkResultItem
+                    {
+                        Data = item.Data,
+                        Success = false,
+                        Message = "Duplicate entry within this batch"
+                    });
+                    continue;
+                }
+
+                if (existingSet.Contains(item.Data))
+                {
+                    results.Add(new QrBulkResultItem
+                    {
+                        Data = item.Data,
+                        Success = false,
+                        Message = "QR Code data already exists"
+                    });
+                    continue;
+                }
+
+                toInsert.Add(new QrCode
+                {
+                    SecurityToken = item.SecurityToken,
+                    EntityType = item.EntityType,
+                    Data = item.Data,
+                    CreatedByEmail = item.CreatedByEmail
+                });
+
+                results.Add(new QrBulkResultItem
+                {
+                    Data = item.Data,
+                    Success = true,
+                    Message = "Registered"
+                });
+            }
+
+            if (toInsert.Count > 0)
+            {
+                var strategy = _context.Database.CreateExecutionStrategy();
+
+                try
+                {
+                    await strategy.ExecuteAsync(async () =>
+                    {
+                        await using var transaction = await _context.Database.BeginTransactionAsync();
+                        await _context.Qrcodes.AddRangeAsync(toInsert);
+                        await _context.SaveChangesAsync();
+                        await transaction.CommitAsync();
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Bulk QR registration failed: {ex.Message}");
+                    return StatusCode(500, "Failed to register QR codes due to a server error.");
+                }
+            }
+
+            var successCount = results.Count(r => r.Success);
+            var failCount = results.Count - successCount;
+
+            return Ok(new
+            {
+                message = $"{successCount} registered, {failCount} failed.",
+                results
+            });
+        }
         [HttpPost("register")]
         public async Task<IActionResult> QrRegister([FromBody] QrCode qrCodeRequest)
         {
@@ -80,5 +186,17 @@ namespace server.controllers
         }
     }
 
-       
+    public class QrCodeBulkRequest
+    {
+        public List<QrCode> Items { get; set; } = new();
+    }
+
+    public class QrBulkResultItem
+    {
+        public string Data { get; set; } = string.Empty;
+        public bool Success { get; set; }
+        public string? Message { get; set; }
+    }
+
+
 }

@@ -18,7 +18,7 @@ export function GalleryAdmin() {
   const fetchImages = async () => {
     try {
       setIsLoading(true);
-      // Clean Axios call
+      // Axios call
       const data = await getGalleryImages(); 
       // Adjusted based on C# response structure (e.g., data.items or just data)
 

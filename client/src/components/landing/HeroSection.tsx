@@ -9,10 +9,10 @@ import { useToast } from "@/hook/use-toast";
 const slides = [
   {
     title: "PHILIPPINE",
-    subtitle: "ROLLBALL",
-    tagline: "FEDERATION",
+    subtitle: "ROLL BALL",
+    tagline: "Association",
     description: "Experience the thrill of rollball – where speed, skill, and teamwork meet on wheels. Join the fastest growing sport in the Philippines.",
-    badge: "National Federation Est. 2018",
+    badge: "Association Est. 2018",
     image: heroBg,
   },
   {
